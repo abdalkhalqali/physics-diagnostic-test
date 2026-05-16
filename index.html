@@ -2,45 +2,373 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عبدالخالق فيزياء | بوابة التعليم التشخيصي</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>عبدالخالق فيزياء | دخول</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #2c1a12 0%, #1f110a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* تأثير خلفية ناعم */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 20%, rgba(210, 150, 75, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .card {
+            background: rgba(44, 26, 18, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 64px;
+            padding: 40px 32px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 30px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(210, 150, 75, 0.25);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(210, 150, 75, 0.4);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.9rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ecd9b4, #c7a46b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #dbbd92;
+            margin-bottom: 35px;
+            font-size: 0.9rem;
+            border-bottom: 1px dashed #8b5a2b;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 6px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ecd9b4;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            background: #23150e;
+            border: 1.5px solid #8b5a2b;
+            border-radius: 60px;
+            font-size: 1rem;
+            color: #faeedb;
+            transition: 0.2s;
+            font-family: inherit;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #d9a13b;
+            box-shadow: 0 0 10px rgba(217, 161, 59, 0.3);
+            background: #2c1b12;
+        }
+
+        .btn {
+            width: 100%;
+            background: linear-gradient(95deg, #7a4a1f, #9b6737);
+            border: none;
+            padding: 15px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #fef2e0;
+            cursor: pointer;
+            transition: 0.25s;
+            margin-top: 10px;
+            font-family: inherit;
+            box-shadow: 0 6px 0 #4e2d12;
+        }
+
+        .btn:hover {
+            background: linear-gradient(95deg, #8e5829, #b17a44);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #4e2d12;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #4e2d12;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 28px;
+            color: #c9ac82;
+        }
+
+        .register-link a {
+            color: #e9c48b;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dotted #c7a157;
+        }
+
+        .romance-message {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: #b49166;
+            border-top: 1px solid #4f311e;
+            padding-top: 20px;
+        }
+
+        .error-message {
+            background: #692f2f80;
+            backdrop-filter: blur(4px);
+            border-radius: 50px;
+            padding: 10px;
+            text-align: center;
+            color: #ffc2a1;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            border-right: 3px solid #d99e3e;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.7rem;
+            color: #6f4f31;
+        }
+
+        @media (max-width: 500px) {
+            .card { padding: 30px 20px; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <img src="assets/images/logo.png" alt="شعار الموقع" class="logo">
-            <h1>عبدالخالق فيزياء</h1>
-            <p>بوطتك لتشخيص مستواك في الفيزياء والوصول إلى التميز</p>
-        </header>
 
-        <div class="cards">
-            <div class="card" onclick="location.href='dictionary/index.html'">
-                <h3>📖 القاموس الفيزيائي</h3>
-                <p>ابحث عن أي مصطلح فيزيائي وتعرف على تعريفه وقانونه ووحدته</p>
-            </div>
-            <div class="card" onclick="location.href='lessons/coulomb.html'">
-                <h3>🧪 السبورة التفاعلية</h3>
-                <p>دروس مصورة بخط اليد مع أمثلة محلولة</p>
-            </div>
-            <div class="card" onclick="location.href='exams/diagnostic.html'">
-                <h3>📝 اختبار تشخيصي</h3>
-                <p>اختبر مستواك في الفيزياء واحصل على تقرير مفصل</p>
-            </div>
-            <div class="card" onclick="location.href='questions/index.html'">
-                <h3>📚 بنك الأسئلة</h3>
-                <p>تدرب على أسئلة حسب المعايير</p>
-            </div>
-            <div class="card" onclick="location.href='student-dashboard/student-dashboard.html'">
-                <h3>📊 لوحة الطالب</h3>
-                <p>تتبع نتائجك ونقاط قوتك وضعفك</p>
-            </div>
-        </div>
+<div class="card" id="loginCard">
+    <div class="logo">🔬✨</div>
+    <h1>عبدالخالق فيزياء</h1>
+    <div style="text-align:center;"><span class="subtitle">حيث تلتقي الفيزياء بالرومانسية</span></div>
 
-        <footer>
-            <p>© 2026 أ. عبد الخالق – جميع الحقوق محفوظة</p>
-        </footer>
+    <div id="messageArea"></div>
+
+    <div class="input-group">
+        <label>📧 البريد الإلكتروني</label>
+        <input type="email" id="loginEmail" placeholder="example@domain.com" autocomplete="email">
     </div>
-    <script src="script.js"></script>
+    <div class="input-group">
+        <label>🔒 كلمة المرور</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <button class="btn" id="loginBtn">✨ دخول ✨</button>
+
+    <div class="register-link">
+        ليس لديك حساب؟ <a href="#" id="showSignup">إنشاء حساب جديد</a>
+    </div>
+    <div class="romance-message">
+        💫 تعلم الفيزياء كرحلة حب.. كل خطوة تقربك من النور 💫
+    </div>
+</div>
+
+<div class="card" id="signupCard" style="display: none;">
+    <div class="logo">📖🌟</div>
+    <h1>حساب جديد</h1>
+    <div style="text-align:center;"><span class="subtitle">انضمي إلى رحلتنا الفيزيائية</span></div>
+
+    <div id="signupMessage"></div>
+
+    <div class="input-group">
+        <label>👤 الاسم (ظاهر في لوحتك)</label>
+        <input type="text" id="signupName" placeholder="مثال: سارة أحمد">
+    </div>
+    <div class="input-group">
+        <label>📧 البريد الإلكتروني</label>
+        <input type="email" id="signupEmail" placeholder="example@domain.com">
+    </div>
+    <div class="input-group">
+        <label>🔐 كلمة المرور</label>
+        <input type="password" id="signupPassword" placeholder="كلمة مرور قوية">
+    </div>
+
+    <button class="btn" id="signupBtn">🚀 إنشاء الحساب</button>
+    <div class="register-link">
+        لديك حساب بالفعل؟ <a href="#" id="showLogin">تسجيل الدخول</a>
+    </div>
+    <div class="romance-message">
+        ✨ كل عالمة فيزياء كانت يوماً مبتدئة.. كوني أنتِ البداية ✨
+    </div>
+</div>
+
+<footer>أ. عبد الخالق | منصة تعليمية تشخيصية رومانسية</footer>
+
+<script>
+    // ---------- بيانات المالك (للدخول إلى لوحة المدير) ----------
+    const MASTER_EMAIL = "abdualkhaliqali115@gmail.com";
+    const MASTER_PASSWORD = "yhwc pthv emeu skge";   // المسافة طبيعية كما أرسلتها
+    
+    // مفتاح تخزين المستخدمين (محاكاة)
+    const STORAGE_USERS_KEY = "physics_users";
+    const STORAGE_SESSION_KEY = "current_user";
+
+    // عناصر الدوم
+    const loginCard = document.getElementById('loginCard');
+    const signupCard = document.getElementById('signupCard');
+    const messageArea = document.getElementById('messageArea');
+    const signupMessage = document.getElementById('signupMessage');
+
+    // عرض رسالة داخل البطاقة
+    function showMessage(element, msg, isError = true) {
+        element.innerHTML = `<div class="error-message">${msg}</div>`;
+        setTimeout(() => { if(element) element.innerHTML = ""; }, 3000);
+    }
+
+    // جلب المستخدمين المخزنين أو تهيئتهم
+    function getUsers() {
+        let users = localStorage.getItem(STORAGE_USERS_KEY);
+        if(!users) {
+            // نضيف مستخدم تجريبي فقط للمثال (ولن يؤثر على المالك)
+            const defaultUsers = [];
+            localStorage.setItem(STORAGE_USERS_KEY, JSON.stringify(defaultUsers));
+            return defaultUsers;
+        }
+        return JSON.parse(users);
+    }
+
+    function saveUsers(users) {
+        localStorage.setItem(STORAGE_USERS_KEY, JSON.stringify(users));
+    }
+
+    // تسجيل الدخول
+    function handleLogin(email, password) {
+        if(!email || !password) {
+            showMessage(messageArea, "✉️ الرجاء إدخال البريد الإلكتروني وكلمة المرور");
+            return false;
+        }
+        // التحقق من صلاحية المالك أولاً (أولوية عليا)
+        if(email === MASTER_EMAIL && password === MASTER_PASSWORD) {
+            // حفظ جلسة المالك
+            localStorage.setItem(STORAGE_SESSION_KEY, JSON.stringify({ email: email, role: "admin" }));
+            window.location.href = "admin.html";   // سننشئ هذه الصفحة لاحقاً
+            return true;
+        }
+        // باقي المستخدمين العاديين
+        const users = getUsers();
+        const user = users.find(u => u.email === email && u.password === password);
+        if(user) {
+            localStorage.setItem(STORAGE_SESSION_KEY, JSON.stringify({ email: user.email, name: user.name, role: "user" }));
+            window.location.href = "dashboard.html"; // سننشئها لاحقاً
+            return true;
+        } else {
+            showMessage(messageArea, "⚠️ البريد الإلكتروني أو كلمة المرور غير صحيحة");
+            return false;
+        }
+    }
+
+    // إنشاء حساب جديد
+    function handleSignup(name, email, password) {
+        if(!name || !email || !password) {
+            showMessage(signupMessage, "✏️ الرجاء ملء جميع الحقول");
+            return;
+        }
+        if(password.length < 4) {
+            showMessage(signupMessage, "🔐 كلمة المرور يجب أن تكون 4 أحرف على الأقل");
+            return;
+        }
+        const users = getUsers();
+        if(users.find(u => u.email === email)) {
+            showMessage(signupMessage, "📧 هذا البريد مسجل بالفعل. استخدمي تسجيل الدخول.");
+            return;
+        }
+        // إضافة المستخدم الجديد
+        const newUser = { name, email, password, registeredAt: new Date().toISOString() };
+        users.push(newUser);
+        saveUsers(users);
+        showMessage(signupMessage, "✅ تم إنشاء الحساب! يمكنك الآن تسجيل الدخول.", false);
+        // تبديل الواجهة إلى تسجيل الدخول بعد 1.5 ثانية
+        setTimeout(() => {
+            document.getElementById('showLogin').click();
+        }, 1500);
+    }
+
+    // --- أحداث الواجهة ---
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const email = document.getElementById('loginEmail').value.trim();
+        const pwd = document.getElementById('loginPassword').value;
+        handleLogin(email, pwd);
+    });
+
+    document.getElementById('showSignup').addEventListener('click', (e) => {
+        e.preventDefault();
+        loginCard.style.display = 'none';
+        signupCard.style.display = 'block';
+        // تنظيف الرسائل
+        if(messageArea) messageArea.innerHTML = "";
+        if(signupMessage) signupMessage.innerHTML = "";
+    });
+
+    document.getElementById('showLogin').addEventListener('click', (e) => {
+        e.preventDefault();
+        signupCard.style.display = 'none';
+        loginCard.style.display = 'block';
+        if(messageArea) messageArea.innerHTML = "";
+        if(signupMessage) signupMessage.innerHTML = "";
+    });
+
+    document.getElementById('signupBtn').addEventListener('click', () => {
+        const name = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        handleSignup(name, email, password);
+    });
+
+    // التحقق من وجود جلسة مفتوحة سابقاً (اختياري)
+    const currentSession = localStorage.getItem(STORAGE_SESSION_KEY);
+    if(currentSession && window.location.pathname.includes("index.html") || window.location.pathname === "/") {
+        const session = JSON.parse(currentSession);
+        if(session.role === "admin") {
+            window.location.href = "admin.html";
+        } else if(session.role === "user") {
+            window.location.href = "dashboard.html";
+        }
+    }
+</script>
 </body>
 </html>
