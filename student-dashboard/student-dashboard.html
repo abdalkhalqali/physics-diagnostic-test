@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>لوحة تحكم الطالب</title>
+    <title>لوحة الطالب</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <h1>لوحة تحكم الطالب</h1>
-    <ul>
-        <li><a href="../exams/diagnostic.html">اختبار تشخيصي</a></li>
-        <li><a href="../exams/midterm.html">اختبار منتصف الفصل</a></li>
-        <li><a href="../exams/final.html">اختبار نهائي</a></li>
-        <li><a href="../lessons/newton.html">درس قوانين نيوتن</a></li>
-        <li><a href="../lessons/coulomb.html">درس قانون كولوم</a></li>
-        <li><a href="../questions/test-questions.json">أسئلة تدريبية</a></li>
-        <li><a href="../dictionary/dictionary.json">قاموس فيزيائي</a></li>
-    </ul>
+<div class="container">
+    <a href="../index.html" class="back-link">← العودة</a>
+    <h1>📊 لوحة الطالب</h1>
+    <div id="results"></div>
+</div>
+<script>
+    const saved = localStorage.getItem('اختبار_تشخيصي');
+    const div = document.getElementById('results');
+    if(saved !== null) {
+        div.innerHTML = `<p>آخر نتيجة اختبار: ${saved}/2</p>`;
+    } else {
+        div.innerHTML = `<p>✨ لم تختبر بعد. اذهبي إلى قسم الاختبارات التشخيصية. ✨</p>`;
+    }
+</script>
 </body>
 </html>
