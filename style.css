@@ -1,13 +1,74 @@
-/* ملف التنسيقات الرئيسي للموقع */
-body {
-    font-family: Tajawal, Arial, sans-serif;
-    background: #f6fafc;
+* {
     margin: 0;
     padding: 0;
-    direction: rtl;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: 'Tajawal', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0b2f2a, #1a4d44);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
 h1 {
-    color: #004080;
-    margin-top: 2rem;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
 }
-/* أضف المزيد من التنسيقات حسب الحاجة */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background: white;
+    border-radius: 28px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    background: #e6f7f0;
+}
+
+.card h3 {
+    color: #1a5d4e;
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+}
+
+.card p {
+    color: #2d4a43;
+    line-height: 1.5;
+}
+
+footer {
+    text-align: center;
+    color: #b0d9cf;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #3a7b6e;
+}
