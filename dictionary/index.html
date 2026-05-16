@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القاموس الفيزيائي | أ. عبد الخالق</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .search-box {
+            text-align: center;
+            margin: 30px 0;
+        }
+        input {
+            width: 60%;
+            padding: 14px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            border: 2px solid #2c7a6e;
+            font-family: inherit;
+        }
+        button {
+            background: #2c7a6e;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        .result-card {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .result-card.show {
+            display: block;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            color: #b0d9cf;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="../index.html" class="back-link">← العودة للرئيسية</a>
+    <h1>📖 القاموس الفيزيائي</h1>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="ابحث عن مصطلح... مثل: قوة، تسارع، شغل">
+        <button onclick="searchTerm()">بحث</button>
+    </div>
+    <div id="result" class="result-card"></div>
+</div>
+<script>
+    async function searchTerm() {
+        const term = document.getElementById("searchInput").value.trim();
+        if(term === "") { alert("يرجى كتابة مصطلح"); return; }
+        const response = await fetch("../assets/dictionary.json");
+        const data = await response.json();
+        const found = data.المصطلحات.find(item => item.الكلمة === term);
+        const resultDiv = document.getElementById("result");
+        if(found) {
+            resultDiv.innerHTML = `
+                <h2>🔍 ${found.الكلمة}</h2>
+                <p><strong>📖 التعريف:</strong> ${found.التعريف}</p>
+                <p><strong>📐 القانون:</strong> ${found.القانون}</p>
+                <p><strong>📏 الوحدة:</strong> ${found.الوحدة}</p>
+                <p><strong>✨ مثال:</strong> ${found.مثال}</p>
+            `;
+        } else {
+            resultDiv.innerHTML = `<p>⚠️ لم نجد مصطلح "${term}". هل تقصدين: قوة، تسارع، شغل، زخم، طاقة حركية؟</p>`;
+        }
+        resultDiv.classList.add("show");
+    }
+</script>
+</body>
+</html>
