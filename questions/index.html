@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>أسئلة تدريبية</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+    <a href="../index.html" class="back-link">← العودة</a>
+    <h1>📚 أسئلة تدريبية</h1>
+    <div id="qa"></div>
+</div>
+<script>
+    fetch('../questions/test-questions.json')
+        .then(res => res.json())
+        .then(data => {
+            let html = '';
+            data.forEach((item, idx) => {
+                html += `<div class="card"><p><strong>${idx+1}. ${item.السؤال}</strong></p>
+                         <p>✅ الإجابة الصحيحة: ${item.الصحيح}</p></div>`;
+            });
+            document.getElementById('qa').innerHTML = html;
+        });
+</script>
+</body>
+</html>
