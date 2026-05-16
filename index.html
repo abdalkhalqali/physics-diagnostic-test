@@ -2,416 +2,45 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>الاختبار التشخيصي المتقدم – الفيزياء | أ. عبد الخالق</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'Tajawal', 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            min-height: 100vh;
-            padding: 20px;
-            color: #1e2a3a;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* بطاقة السؤال */
-        .quiz-card {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(2px);
-            border-radius: 48px;
-            padding: 30px 25px;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        h1 {
-            font-size: 1.9rem;
-            background: linear-gradient(135deg, #1e6f5c, #289672);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .sub {
-            text-align: center;
-            color: #2c7a6e;
-            font-weight: 500;
-            margin-bottom: 25px;
-            border-bottom: 2px dashed #cbd5e1;
-            display: inline-block;
-            width: auto;
-            margin-left: auto;
-            margin-right: auto;
-            padding-bottom: 8px;
-        }
-
-        /* شريط التقدم */
-        .progress-area {
-            margin-bottom: 30px;
-        }
-        .progress-bar-container {
-            background-color: #e2e8f0;
-            border-radius: 40px;
-            height: 14px;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-        .progress-fill {
-            background: linear-gradient(90deg, #2c7a6e, #48bb78);
-            width: 0%;
-            height: 100%;
-            border-radius: 40px;
-            transition: width 0.3s ease;
-        }
-        .question-counter {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
-            color: #1e4a4b;
-        }
-        .difficulty-badge {
-            font-size: 0.75rem;
-            background: #f1f5f9;
-            padding: 4px 12px;
-            border-radius: 30px;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
-        /* نص السؤال */
-        .question-text {
-            font-size: 1.6rem;
-            font-weight: 700;
-            line-height: 1.4;
-            margin: 20px 0 25px;
-            color: #0a2b2e;
-        }
-
-        /* الخيارات */
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 35px;
-        }
-        .option {
-            background: #f8fafc;
-            border: 2px solid #e2edf2;
-            border-radius: 60px;
-            padding: 12px 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 1rem;
-        }
-        .option:hover {
-            background: #e6f7f0;
-            border-color: #2c7a6e;
-            transform: scale(0.99);
-        }
-        .option.selected {
-            background: #2c7a6e20;
-            border-color: #2c7a6e;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        /* أزرار التنقل */
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        button {
-            background: #2c7a6e;
-            border: none;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
-        }
-        button:hover {
-            background: #1e5f53;
-            transform: translateY(-2px);
-        }
-        button:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .secondary-btn {
-            background: #475569;
-        }
-        .secondary-btn:hover {
-            background: #1e293b;
-        }
-
-        /* صفحة النتيجة */
-        .result-card {
-            background: #ffffffdd;
-            backdrop-filter: blur(4px);
-            border-radius: 48px;
-            padding: 30px;
-            line-height: 1.6;
-        }
-        .score-circle {
-            width: 140px;
-            height: 140px;
-            background: #1e6f5c;
-            border-radius: 50%;
-            margin: 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2.5rem;
-            font-weight: bold;
-            box-shadow: 0 10px 25px #00000030;
-        }
-        .mistake-item {
-            border-right: 4px solid #e53e3e;
-            background: #fff5f5;
-            margin: 15px 0;
-            padding: 15px;
-            border-radius: 24px;
-        }
-        .inline-code {
-            background: #edf2f7;
-            padding: 2px 8px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-        }
-        footer {
-            text-align: center;
-            margin-top: 25px;
-            color: #cbd5e1;
-            font-size: 0.8rem;
-        }
-        @media (max-width: 600px) {
-            .quiz-card { padding: 20px; }
-            .question-text { font-size: 1.3rem; }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عبدالخالق فيزياء | بوابة التعليم التشخيصي</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container" id="app"></div>
-<footer>أ. عبد الخالق | اختبار تشخيصي متقدم – فيزياء الرخصة المهنية</footer>
+    <div class="container">
+        <header>
+            <img src="assets/images/logo.png" alt="شعار الموقع" class="logo">
+            <h1>عبدالخالق فيزياء</h1>
+            <p>بوطتك لتشخيص مستواك في الفيزياء والوصول إلى التميز</p>
+        </header>
 
-<script>
-    // ------------------- الأسئلة (40 سؤالاً) ------------------
-    // المجالات: mechanics, electricity, heat_waves, modern
-    // المستوى: easy, medium, hard, very_hard
-    const questions = [
-        // ================= الميكانيكا (10) =================
-        { text: "وحدة قياس التسارع في النظام الدولي هي:", options: ["أ) m/s", "ب) m/s²", "ج) N/kg", "د) kg·m/s"], correct: "ب", level: "easy", field: "mechanics", explanation: "التسارع هو معدل تغير السرعة، ووحدته متر لكل ثانية مربعة (m/s²)." },
-        { text: "ينص قانون نيوتن الأول على:", options: ["أ) لكل فعل رد فعل مساوٍ له في المقدار ومعاكس في الاتجاه", "ب) الجسم الساكن يبقى ساكناً والجسم المتحرك يبقى متحركاً بسرعة ثابتة ما لم تؤثر عليه قوة محصلة", "ج) القوة = الكتلة × التسارع", "د) التسارع يتناسب طردياً مع القوة وعكسياً مع الكتلة"], correct: "ب", level: "easy", field: "mechanics", explanation: "هذا هو قانون القصور الذاتي، أساس الميكانيكا الكلاسيكية." },
-        { text: "إذا كانت كتلة جسم 5kg وتسارعه 2 m/s²، فإن القوة المؤثرة عليه تساوي:", options: ["أ) 2.5 N", "ب) 7 N", "ج) 10 N", "د) 25 N"], correct: "ج", level: "easy", field: "mechanics", explanation: "F = m × a = 5 × 2 = 10 نيوتن." },
-        { text: "أي من الكميات التالية كمية متجهة؟", options: ["أ) الكتلة", "ب) درجة الحرارة", "ج) السرعة", "د) الطاقة"], correct: "ج", level: "easy", field: "mechanics", explanation: "السرعة لها مقدار واتجاه، أما الباقي فكميات قياسية." },
-        { text: "قذفت كرة رأسياً لأعلى بسرعة 20 m/s (g=10 m/s²). أقصى ارتفاع تصل إليه:", options: ["أ) 10 m", "ب) 20 m", "ج) 40 m", "د) 5 m"], correct: "ب", level: "medium", field: "mechanics", explanation: "h = v²/(2g) = 400/20 = 20 m." },
-        { text: "يتحرك جسم في مسار دائري نصف قطره 2m بسرعة خطية 4 m/s. عجلة مركزية:", options: ["أ) 2 m/s²", "ب) 4 m/s²", "ج) 8 m/s²", "د) 16 m/s²"], correct: "ج", level: "medium", field: "mechanics", explanation: "ac = v²/r = 16/2 = 8 m/s²." },
-        { text: "شخص كتلته 60 kg يقف في مصعد يتحرك لأعلى بتسارع 2 m/s². القوة العمودية (الوزن الظاهري) = (g=10)", options: ["أ) 480 N", "ب) 600 N", "ج) 720 N", "د) 800 N"], correct: "ج", level: "medium", field: "mechanics", explanation: "N = m(g+a) = 60×12 = 720 نيوتن." },
-        { text: "قذف مقذوف بزاوية 45° مع الأفق بسرعة 20√2 m/s . المدى الأفقي = (g=10)", options: ["أ) 20 m", "ب) 40 m", "ج) 60 m", "د) 80 m"], correct: "د", level: "hard", field: "mechanics", explanation: "R = v² sin(2θ)/g = (800 × sin90)/10 = 80 m." },
-        { text: "كتلتان 2kg و 3kg مربوطتان بحبل مفرود على سطح أملس، أثرت قوة 10N على الكتلة الأولى. شد الحبل:", options: ["أ) 2 N", "ب) 4 N", "ج) 6 N", "د) 10 N"], correct: "ج", level: "hard", field: "mechanics", explanation: "تسارع النظام 2m/s²، قوة شد على 3kg = 3×2 = 6N." },
-        { text: "كرة كتلتها 0.5kg مربوطة بخيط طول 1m تدور رأسياً. سرعتها عند أدنى نقطة 5m/s. قوة الشد عند أدنى نقطة (g=10):", options:["أ) 12.5 N","ب) 17.5 N","ج) 22.5 N","د) 30 N"], correct:"ب", level:"very_hard", field:"mechanics", explanation:"T = mg + mv²/r = 5 + 12.5 = 17.5 N."},
-        
-        // ================= الكهرباء والمغناطيس (10) =================
-        { text: "وحدة قياس المقاومة الكهربائية هي:", options:["أ) فولت","ب) أمبير","ج) أوم","د) واط"], correct:"ج", level:"easy", field:"electricity", explanation:"الأوم (Ω) هو وحدة المقاومة." },
-        { text: "قانون أوم يربط بين:", options:["أ) التيار والمقاومة فقط","ب) الجهد والتيار والمقاومة","ج) الجهد والزمن","د) القدرة والطاقة"], correct:"ب", level:"easy", field:"electricity", explanation:"V = I × R يصف العلاقة بين الجهد والتيار والمقاومة." },
-        { text: "ثلاث مقاومات 2Ω لكل منها توصل على التوالي، المقاومة المكافئة:", options:["أ) 2/3 Ω","ب) 2Ω","ج) 6Ω","د) 8Ω"], correct:"ج", level:"easy", field:"electricity", explanation:"مقاومات التوالي: 2+2+2 = 6 أوم." },
-        { text: "بطارية قوتها الدافعة 12V ومقاومتها الداخلية 1Ω ، وصلت بمقاومة خارجية 5Ω. شدة التيار:", options:["أ) 1A","ب) 2A","ج) 2.4A","د) 3A"], correct:"ب", level:"medium", field:"electricity", explanation:"I = 12/(1+5) = 2A." },
-        { text: "سلك مقاومته R، إذا ضوعف طوله (ثابت المقطع) تصبح مقاومته:", options:["أ) R/2","ب) R","ج) 2R","د) 4R"], correct:"ج", level:"medium", field:"electricity", explanation:"R ∝ L، مضاعفة الطول تضاعف المقاومة." },
-        { text: "شحنتان q1 = 2µC , q2 = 8µC ، المسافة 0.2m في الهواء. القوة بينهما (k=9×10⁹):", options:["أ) 0.36 N","ب) 1.44 N","ج) 3.6 N","د) 14.4 N"], correct:"ج", level:"medium", field:"electricity", explanation:"F= k q1 q2 / r² = 9e9×16e-12/0.04 = 3.6 N." },
-        { text: "مكثف سعته 10µF مشحون بفرق جهد 100V. الطاقة المخزنة:", options:["أ) 0.005 J","ب) 0.05 J","ج) 0.5 J","د) 5 J"], correct:"ب", level:"hard", field:"electricity", explanation:"E=½CV² = 0.5×10e-6×10000=0.05 J." },
-        { text: "قوتان كهربائيتان متساويتان، إذا زادت المسافة للضعف، القوة:", options:["أ] تصبح الربع","ب] النصف","ج] الضعف","د] لا تتغير"], correct:"أ", level:"hard", field:"electricity", explanation:"F ∝ 1/r²، ضعف المسافة → 1/4 القوة." },
-        { text: "ملف لولبي طوله 0.5m وعدد لفاته 500 ، يمر به تيار 2A. شدة المجال المغناطيسي بداخله (μ₀=4π×10⁻⁷):", options:["أ) 2.5×10⁻⁴ T","ب) 6.28×10⁻⁴ T","ج) 1.26×10⁻³ T","د) 2.5×10⁻³ T"], correct:"ج", level:"very_hard", field:"electricity", explanation:"B = μ₀ N I / L = 4πe-7×500×2/0.5 ≈ 2.51e-3 T." },
-        { text: "في محول مثالي، عدد لفات الابتدائي 200 والثانوي 800، جهد ابتدائي 110V. جهد الثانوي:", options:["أ) 27.5 V","ب) 220 V","ج) 440 V","د) 880 V"], correct:"ج", level:"very_hard", field:"electricity", explanation:"Vp/Vs = Np/Ns → 110/Vs=200/800 → Vs=440V." },
-        
-        // ================= الحرارة والموجات والضوء (10) =================
-        { text: "درجة حرارة الجسم هي مقياس لـ:", options:["أ) متوسط الطاقة الحركية لجزيئاته","ب) كمية الحرارة الكلية","ج) سرعة الجزيئات فقط","د) طاقة الوضع"], correct:"أ", level:"easy", field:"heat_waves", explanation:"درجة الحرارة تعبر عن متوسط طاقة الحركة للجزيئات." },
-        { text: "أي مما يلي ليس من طرق انتقال الحرارة:", options:["أ) التوصيل","ب) الحمل","ج) الإشعاع","د) التكثيف"], correct:"د", level:"easy", field:"heat_waves", explanation:"التكثيف عملية تغير حالة وليست انتقال حرارة." },
-        { text: "سرعة الصوت في الهواء تزداد عندما:", options:["أ) تنخفض درجة الحرارة","ب) ترتفع درجة الحرارة","ج) يقل الضغط","د) تزيد الرطوبة قليلاً"], correct:"ب", level:"medium", field:"heat_waves", explanation:"سرعة الصوت تتناسب طردياً مع الجذر التربيعي لدرجة الحرارة المطلقة." },
-        { text: "قانون الغاز المثالي هو:", options:["أ) P₁V₁=P₂V₂","ب) V/T = ثابت","ج) PV = nRT","د) P/T = ثابت"], correct:"ج", level:"medium", field:"heat_waves", explanation:"معادلة الحالة العامة للغاز المثالي." },
-        { text: "معامل انكسار الزجاج 1.5، سرعة الضوء في الزجاج = (c=3×10⁸):", options:["أ) 2×10⁸ m/s","ب) 1.5×10⁸ m/s","ج) 3×10⁸ m/s","د) 4.5×10⁸ m/s"], correct:"أ", level:"medium", field:"heat_waves", explanation:"v = c/n = 3e8/1.5 = 2e8 m/s." },
-        { text: "مرآة مقعرة نصف قطر تكورها 40cm. بعدها البؤري:", options:["أ) 10 cm","ب) 20 cm","ج) 40 cm","د) 80 cm"], correct:"ب", level:"medium", field:"heat_waves", explanation:"f = R/2 = 20 cm." },
-        { text: "عدسة محدبة بعدها البؤري 10cm، جسم على بعد 30cm. صفات الصورة:", options:["أ) حقيقية مقلوبة مصغرة","ب) حقيقية مكبرة","ج) خيالية معتدلة","د) لا تتكون"], correct:"أ", level:"hard", field:"heat_waves", explanation:"do > 2f → صورة حقيقية مصغرة مقلوبة." },
-        { text: "قوس المطر ينتج بسبب:", options:["أ) التداخل","ب) الحيود","ج) الانكسار والانعكاس الداخلي","د) الاستقطاب"], correct:"ج", level:"hard", field:"heat_waves", explanation:"انكسار الضوء ثم انعكاس داخلي داخل قطرة الماء." },
-        { text: "في تجربة يونج، المسافة بين الهدب المضيء الأول والمركزي = 2mm، المسافة بين الشقين 0.5mm، بعد الشاشة 1m. الطول الموجي:", options:["أ) 250 nm","ب) 500 nm","ج) 1000 nm","د) 1500 nm"], correct:"ب", level:"very_hard", field:"heat_waves", explanation:"λ = x d / L = (2e-3 × 5e-4)/1 = 1e-6 m = 1000 nm." },
-        { text: "صوت تردده 340Hz يتحرك بسرعة 340 m/s. طوله الموجي:", options:["أ) 0.5 m","ب) 1 m","ج) 2 m","د) 340 m"], correct:"ب", level:"easy", field:"heat_waves", explanation:"λ = v/f = 340/340 = 1 m." },
-        
-        // ================= الفيزياء الحديثة والنووية (10) =================
-        { text: "النظرية النسبية الخاصة لأينشتاين تفترض أن سرعة الضوء:", options:["أ) تعتمد على سرعة المصدر","ب) ثابتة في جميع الأطر القصورية","ج) تتغير مع الجاذبية","د) أكبر في الماء"], correct:"ب", level:"easy", field:"modern", explanation:"الفرضية الثانية للنسبية الخاصة." },
-        { text: "معادلة تكافؤ المادة والطاقة هي:", options:["أ) E = hf","ب) E = mc²","ج) p = h/λ","د) F = ma"], correct:"ب", level:"easy", field:"modern", explanation:"أشهر معادلات أينشتاين." },
-        { text: "أي مما يلي موجة كهرومغناطيسية؟", options:["أ) الصوت","ب) الزلازل","ج) الضوء","د) الموجات المائية"], correct:"ج", level:"easy", field:"modern", explanation:"الضوء موجة كهرومغناطيسية لا تحتاج لوسط." },
-        { text: "ظاهرة التأثير الكهروضوئي تفسر بأن الضوء:", options:["أ) موجة","ب) يتكون من فوتونات","ج) غير مرئي","د) ينكسر دائماً"], correct:"ب", level:"medium", field:"modern", explanation:"أينشتاين فسرها بالفوتونات." },
-        { text: "تردد العتبة لفلز هو 5×10¹⁴ Hz، دالة الشغل (h=6.63×10⁻³⁴):", options:["أ) 2.21×10⁻¹⁹ J","ب) 3.315×10⁻¹⁹ J","ج) 4.42×10⁻¹⁹ J","د) 6.63×10⁻¹⁹ J"], correct:"ب", level:"medium", field:"modern", explanation:"W = h f₀ = 6.63e-34×5e14 ≈3.315e-19 J." },
-        { text: "نموذج بور استطاع تفسير:", options:["أ) طيف الهيدروجين","ب) طيف جميع الذرات","ج) النشاط الإشعاعي","د) قوى النواة"], correct:"أ", level:"medium", field:"modern", explanation:"نجح بور في تفسير خطوط طيف الهيدروجين فقط." },
-        { text: "اضمحلال ألفا يقلل العدد الكتلي بمقدار:", options:["أ) 1","ب) 2","ج) 4","د) لا يتغير"], correct:"ج", level:"medium", field:"modern", explanation:"جسيم ألفا هو نواة هيليوم (عدد كتلي 4)." },
-        { text: "عمر النصف لعنصر 8 أيام، كتلته 80g. المتبقي بعد 32 يوماً:", options:["أ) 5g","ب) 10g","ج) 20g","د) 40g"], correct:"أ", level:"hard", field:"modern", explanation:"32 يوم = 4 فترات (80→40→20→10→5)." },
-        { text: "طول موجة دي برولي لإلكترون speed = 2×10⁶ m/s (m=9.1×10⁻³¹, h=6.63×10⁻³⁴):", options:["أ) 0.364 nm","ب) 0.182 nm","ج) 0.091 nm","د) 0.036 nm"], correct:"أ", level:"very_hard", field:"modern", explanation:"λ = h/(mv) = 6.63e-34/(9.1e-31×2e6) ≈ 3.64e-10 m = 0.364 nm." },
-        { text: "مبدأ عدم اليقين لهايزنبرغ ينص على:", options:["أ) استحالة تحديد طاقة الإلكترون بدقة","ب) استحالة تحديد موقع وزخم الجسيم بدقة في آن واحد","ج) أن الإلكترون جسيم وموجة معاً","د) استحالة معرفة سرعة الضوء"], correct:"ب", level:"hard", field:"modern", explanation:"Δx Δp ≥ ℏ/2 ، أساس ميكانيكا الكم." }
-    ];
-
-    // ============ منطق الاختبار ============
-    let currentIndex = 0;            // السؤال الحالي
-    let userAnswers = new Array(questions.length).fill(null);
-    let app = document.getElementById("app");
-
-    function render() {
-        let q = questions[currentIndex];
-        let selectedValue = userAnswers[currentIndex];
-        let progressPercent = ((currentIndex + 1) / questions.length) * 100;
-
-        let difficultyText = { easy: "سهل", medium: "متوسط", hard: "متوسط-صعب", very_hard: "صعب جداً" }[q.level];
-        let fieldText = { mechanics: "⚙️ ميكانيكا", electricity: "⚡ كهرباء", heat_waves: "🔥 حرارة وموجات", modern: "🧪 فيزياء حديثة" }[q.field];
-
-        let optionsHtml = q.options.map(opt => {
-            let letter = opt.charAt(0);
-            let isSelected = (selectedValue === letter);
-            return `<div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption('${letter}')">${opt}</div>`;
-        }).join('');
-
-        let html = `
-            <div class="quiz-card">
-                <h1>📘 التقييم التشخيصي المتقدم</h1>
-                <div style="text-align:center"><span class="sub">أ. عبد الخالق</span></div>
-                <div class="progress-area">
-                    <div class="progress-bar-container"><div class="progress-fill" style="width: ${progressPercent}%;"></div></div>
-                    <div class="question-counter">
-                        <span>📌 السؤال ${currentIndex+1} / ${questions.length}</span>
-                        <span>⭐ ${difficultyText} &nbsp;|&nbsp; ${fieldText}</span>
-                    </div>
-                </div>
-                <div class="question-text">${q.text}</div>
-                <div class="options-list">${optionsHtml}</div>
-                <div class="nav-buttons">
-                    <button class="secondary-btn" ${currentIndex === 0 ? 'disabled' : ''} onclick="prevQuestion()">⟳ السابق</button>
-                    <button ${currentIndex === questions.length-1 ? 'id="finishBtn"' : ''} onclick="nextQuestion()">${currentIndex === questions.length-1 ? '🏁 إنهاء الاختبار' : 'التالي →'}</button>
-                </div>
+        <div class="cards">
+            <div class="card" onclick="location.href='dictionary/index.html'">
+                <h3>📖 القاموس الفيزيائي</h3>
+                <p>ابحث عن أي مصطلح فيزيائي وتعرف على تعريفه وقانونه ووحدته</p>
             </div>
-        `;
-        app.innerHTML = html;
-    }
-
-    window.selectOption = (letter) => {
-        userAnswers[currentIndex] = letter;
-        render();
-    };
-
-    window.nextQuestion = () => {
-        if (userAnswers[currentIndex] === null) {
-            alert("الرجاء اختيار إجابة قبل الانتقال.");
-            return;
-        }
-        if (currentIndex === questions.length - 1) {
-            showResults();
-        } else {
-            currentIndex++;
-            render();
-        }
-    };
-
-    window.prevQuestion = () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            render();
-        }
-    };
-
-    function showResults() {
-        // تصحيح الدرجات حسب الصعوبة
-        let score = 0;
-        let maxScore = 0;
-        let details = [];
-        for (let i=0; i<questions.length; i++) {
-            let q = questions[i];
-            let points = { easy:1, medium:2, hard:3, very_hard:4 }[q.level];
-            maxScore += points;
-            let isCorrect = (userAnswers[i] === q.correct);
-            if (isCorrect) score += points;
-            details.push({ ...q, userAnswer: userAnswers[i], isCorrect, points, maxPoint: points });
-        }
-        let percentage = (score / maxScore) * 100;
-        
-        // التحليل حسب المجال
-        let fields = { mechanics: { name:"الميكانيكا", correct:0, total:0 }, electricity:{ name:"الكهرباء والمغناطيس", correct:0, total:0 }, heat_waves:{ name:"الحرارة والموجات والضوء", correct:0, total:0 }, modern:{ name:"الفيزياء الحديثة والنووية", correct:0, total:0 } };
-        details.forEach(d => {
-            fields[d.field].total += d.maxPoint;
-            if(d.isCorrect) fields[d.field].correct += d.maxPoint;
-        });
-        
-        let mistakesHtml = details.filter(d => !d.isCorrect).map(d => `
-            <div class="mistake-item">
-                <strong>❌ السؤال: ${d.text}</strong><br>
-                إجابتك: ${d.userAnswer || "لم تجب"} | الصحيح: ${d.correct}<br>
-                📘 <span class="inline-code">${d.explanation}</span>
+            <div class="card" onclick="location.href='lessons/coulomb.html'">
+                <h3>🧪 السبورة التفاعلية</h3>
+                <p>دروس مصورة بخط اليد مع أمثلة محلولة</p>
             </div>
-        `).join('');
-        
-        let levelMsg = "";
-        if (percentage >= 85) levelMsg = "متمكنة جداً 🌟";
-        else if (percentage >= 70) levelMsg = "متقدمة ✅";
-        else if (percentage >= 50) levelMsg = "متوسطة 📚";
-        else if (percentage >= 30) levelMsg = "أساسية بحاجة إلى دعم ✏️";
-        else levelMsg = "تحتاجين إلى تأسيس قوي 💪";
-        
-        let romanceMessage = `
-        <div style="background: #ffe6f0; border-radius: 35px; padding: 20px; margin: 20px 0; text-align: center; border: 1px solid #fbb6ce;">
-            🌸✨ <strong>رسالة إلى بطلتي:</strong> ✨🌸<br><br>
-            لا تقلقي أبداً من النسيان.. فالعلم كالنور، يكفي أن تشعلي شمعة الفهم من جديد. كل إجابة خاطئة هنا هي مجرد حجر كريم يخبرني أين أضع يدي لأبنيكِ جسراً متيناً نحو النجاح. أنا هنا معكِ، وسنحول كل صعوبة إلى قصة نجاح نرويها معاً. أنتِ قادرة، بل أنتِ أكثر من رائعة. 🤍🌼
-        </div>`;
-        
-        let recommendationHtml = `<div style="background:#e0f2fe; border-radius:30px; padding:18px; margin-top:20px;"><strong>📝 خطة التقوية المقترحة:</strong><br>`;
-        let weakAreas = [];
-        for(let f in fields){
-            let ratio = (fields[f].correct/fields[f].total)*100;
-            if(ratio < 60) weakAreas.push(`<li>${fields[f].name}: إتقان ${Math.round(ratio)}% → نحتاج حصصاً تركيزية (${Math.round((60-ratio)/10)+2} ساعات تدريبية)</li>`);
-        }
-        if(weakAreas.length) recommendationHtml += `<ul>${weakAreas.join('')}</ul><br>🔹 سأصمم لكِ خطة شخصية تشمل فيديوهات، مسائل تفاعلية، وحصص مباشرة حسب الأجندة التي تناسبك.`;
-        else recommendationHtml += `<ul><li>✅ أداؤكِ ممتاز، فقط مراجعة سريعة للاختبارات التجريبية تكفي للوصول للتميز.</li></ul>`;
-        recommendationHtml += `</div>`;
-        
-        let resultHtml = `
-            <div class="result-card">
-                <h2 style="text-align:center">📊 نتائجك التشخيصية</h2>
-                <div class="score-circle">${Math.round(percentage)}%</div>
-                <p style="text-align:center; font-size:1.4rem;">⭐ مستوى التصنيف: ${levelMsg}</p>
-                <p style="text-align:center">الدرجة ${score} من ${maxScore} (التقييم وفق صعوبة الأسئلة)</p>
-                <hr>
-                <h3>📌 أداء حسب المجالات:</h3>
-                <ul>
-                    <li>⚙️ الميكانيكا: ${fields.mechanics.correct}/${fields.mechanics.total}</li>
-                    <li>⚡ الكهرباء: ${fields.electricity.correct}/${fields.electricity.total}</li>
-                    <li>🔥 الحرارة والموجات والضوء: ${fields.heat_waves.correct}/${fields.heat_waves.total}</li>
-                    <li>🧪 الفيزياء الحديثة: ${fields.modern.correct}/${fields.modern.total}</li>
-                </ul>
-                ${romanceMessage}
-                <h3>📖 أخطاؤك وحقائق مهمة:</h3>
-                ${mistakesHtml || "<p style='color:green;'>✨ مذهلة! لا توجد أخطاء، أنتِ جاهزة للاختبار الحقيقي. ✨</p>"}
-                ${recommendationHtml}
-                <div style="text-align:center; margin-top:25px;">
-                    <button onclick="location.reload();">🔄 إعادة الاختبار</button>
-                </div>
+            <div class="card" onclick="location.href='exams/diagnostic.html'">
+                <h3>📝 اختبار تشخيصي</h3>
+                <p>اختبر مستواك في الفيزياء واحصل على تقرير مفصل</p>
             </div>
-        `;
-        app.innerHTML = resultHtml;
-    }
+            <div class="card" onclick="location.href='questions/index.html'">
+                <h3>📚 بنك الأسئلة</h3>
+                <p>تدرب على أسئلة حسب المعايير</p>
+            </div>
+            <div class="card" onclick="location.href='student-dashboard/student-dashboard.html'">
+                <h3>📊 لوحة الطالب</h3>
+                <p>تتبع نتائجك ونقاط قوتك وضعفك</p>
+            </div>
+        </div>
 
-    render();
-</script>
+        <footer>
+            <p>© 2026 أ. عبد الخالق – جميع الحقوق محفوظة</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
