@@ -1,0 +1,13 @@
+/* ملف التنسيقات الرئيسي للموقع */
+body {
+    font-family: Tajawal, Arial, sans-serif;
+    background: #f6fafc;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+}
+h1 {
+    color: #004080;
+    margin-top: 2rem;
+}
+/* أضف المزيد من التنسيقات حسب الحاجة */
