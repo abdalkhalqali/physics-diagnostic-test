@@ -1,1 +1,18 @@
-
+{
+  "results": [
+    {
+      "id": "res_001",
+      "userEmail": "sara@test.com",
+      "examType": "standard",
+      "examId": 5,
+      "score": 8,
+      "total": 10,
+      "percentage": 80,
+      "answers": [
+        {"questionId": 1001, "userAnswer": "أ", "isCorrect": true},
+        {"questionId": 1002, "userAnswer": "ب", "isCorrect": false}
+      ],
+      "date": "2026-05-17T14:30:00.000Z"
+    }
+  ]
+}
