@@ -1,1 +1,20 @@
-
+{
+  "users": [
+    {
+      "email": "abdualkhaliqali115@gmail.com",
+      "name": "أ. عبد الخالق",
+      "password": "yhwc pthv emeu skge",
+      "role": "admin",
+      "status": "active",
+      "registeredAt": "2026-05-17"
+    },
+    {
+      "email": "sara@test.com",
+      "name": "سارة أحمد",
+      "password": "123456",
+      "role": "user",
+      "status": "active",
+      "registeredAt": "2026-05-17"
+    }
+  ]
+}
