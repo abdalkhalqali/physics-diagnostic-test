@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عبدالخالق فيزياء | دخول</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>عبدالخالق فيزياء | بوابة الدخول</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: 'Tajawal', 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(145deg, #2c1a12 0%, #1f110a 100%);
+            font-family: 'Segoe UI', 'Tajawal', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at 10% 30%, #2c1a12, #140b07);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -22,246 +22,566 @@
             position: relative;
         }
 
+        /* خلفية متحركة هادئة */
         body::before {
             content: "";
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(circle at 10% 20%, rgba(210, 150, 75, 0.08) 0%, transparent 50%);
+            background-image: radial-gradient(circle at 20% 40%, rgba(210, 150, 75, 0.08) 1%, transparent 1%);
+            background-size: 40px 40px;
             pointer-events: none;
         }
 
-        .card {
-            background: rgba(44, 26, 18, 0.85);
-            backdrop-filter: blur(12px);
-            border-radius: 64px;
-            padding: 40px 32px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 30px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(210, 150, 75, 0.25);
-            border: 1px solid rgba(210, 150, 75, 0.4);
+        body::after {
+            content: "✨";
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 2rem;
+            opacity: 0.2;
+            pointer-events: none;
         }
 
-        .logo { text-align: center; font-size: 3rem; margin-bottom: 15px; }
-        h1 { text-align: center; font-size: 1.9rem; background: linear-gradient(135deg, #ecd9b4, #c7a46b); background-clip: text; -webkit-background-clip: text; color: transparent; margin-bottom: 12px; }
-        .subtitle { text-align: center; color: #dbbd92; margin-bottom: 35px; font-size: 0.9rem; border-bottom: 1px dashed #8b5a2b; display: inline-block; width: auto; margin-left: auto; margin-right: auto; padding-bottom: 6px; }
-        .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: #ecd9b4; font-weight: 500; }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* البطاقة الرئيسية */
+        .glass-card {
+            background: rgba(44, 26, 18, 0.65);
+            backdrop-filter: blur(16px);
+            border-radius: 56px;
+            padding: 40px 32px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(210, 150, 75, 0.2);
+            border: 1px solid rgba(210, 150, 75, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        /* الشعار */
+        .logo {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+            letter-spacing: -2px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f3e0be, #d4a55a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #dbbd92;
+            font-size: 0.85rem;
+            margin-bottom: 35px;
+            border-bottom: 1px dashed #8b5a2b;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 6px;
+        }
+
+        /* الحقول */
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ecd9b4;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
         input {
             width: 100%;
-            padding: 14px 18px;
-            background: #23150e;
+            padding: 15px 18px;
+            background: #1f130e;
             border: 1.5px solid #8b5a2b;
             border-radius: 60px;
             font-size: 1rem;
             color: #faeedb;
+            transition: all 0.25s ease;
+            font-family: inherit;
             outline: none;
         }
-        input:focus { border-color: #d9a13b; box-shadow: 0 0 8px rgba(217, 161, 59, 0.3); background: #2c1b12; }
+
+        input:focus {
+            border-color: #e9b85c;
+            box-shadow: 0 0 12px rgba(233, 184, 92, 0.2);
+            background: #2a1a12;
+        }
+
+        input::placeholder {
+            color: #8b6a48;
+            font-size: 0.85rem;
+        }
+
+        /* الأزرار */
         .btn {
             width: 100%;
-            background: linear-gradient(95deg, #7a4a1f, #9b6737);
+            background: linear-gradient(105deg, #7a4a1f, #a36f3a);
             border: none;
             padding: 14px;
             border-radius: 60px;
             font-weight: bold;
             font-size: 1rem;
-            color: #fef2e0;
+            color: #fef5e8;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.25s;
             margin-top: 8px;
+            font-family: inherit;
+            box-shadow: 0 6px 0 #4a2c12;
         }
-        .btn:hover { background: linear-gradient(95deg, #8e5829, #b17a44); transform: translateY(-2px); }
-        .register-link { text-align: center; margin-top: 25px; color: #c9ac82; }
-        .register-link a { color: #e9c48b; text-decoration: none; font-weight: bold; }
-        .romance-message { text-align: center; margin-top: 25px; font-size: 0.8rem; color: #b49166; border-top: 1px solid #4f311e; padding-top: 15px; }
-        .message-box { background: #692f2f80; border-radius: 50px; padding: 10px; text-align: center; color: #ffc2a1; margin-bottom: 20px; font-size: 0.85rem; border-right: 3px solid #d99e3e; }
-        .success-box { background: #2f6e3e80; border-right-color: #9bde7c; color: #d4ffcd; }
-        .code-box { background: #1e2a2c; border: 1px dashed #d9a13b; border-radius: 40px; padding: 15px; text-align: center; margin: 15px 0; }
-        .code-text { font-size: 1.8rem; letter-spacing: 6px; font-weight: bold; color: #f3c26b; }
-        footer { text-align: center; margin-top: 30px; font-size: 0.7rem; color: #6f4f31; }
-        @media (max-width: 500px) { .card { padding: 25px 18px; } h1 { font-size: 1.6rem; } }
+
+        .btn:hover {
+            background: linear-gradient(105deg, #8e5829, #b88348);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #4a2c12;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #4a2c12;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            box-shadow: none;
+            border: 1.5px solid #a36f3a;
+            color: #e9c48b;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(163, 111, 58, 0.15);
+            transform: translateY(-2px);
+            box-shadow: none;
+        }
+
+        /* روابط ورسائل */
+        .toggle-link {
+            text-align: center;
+            margin-top: 28px;
+            color: #c9ac82;
+            font-size: 0.85rem;
+        }
+
+        .toggle-link a {
+            color: #e9c48b;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dashed #c7a157;
+        }
+
+        .romance-message {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 0.75rem;
+            color: #b49166;
+            border-top: 1px solid #4f311e;
+            padding-top: 18px;
+        }
+
+        /* مربعات الرسائل */
+        .message-box {
+            background: #692f2faa;
+            backdrop-filter: blur(6px);
+            border-radius: 60px;
+            padding: 12px 16px;
+            text-align: center;
+            color: #ffd8c4;
+            margin-bottom: 22px;
+            font-size: 0.85rem;
+            border-right: 3px solid #e9b85c;
+        }
+
+        .success-box {
+            background: #2f6e3eaa;
+            border-right-color: #9bde7c;
+            color: #e5ffdd;
+        }
+
+        /* كود التفعيل */
+        .code-display {
+            background: #1e1510;
+            border: 1px dashed #e9b85c;
+            border-radius: 40px;
+            padding: 18px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .code-number {
+            font-size: 2rem;
+            letter-spacing: 8px;
+            font-weight: bold;
+            color: #f3c26b;
+            font-family: monospace;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 550px) {
+            .glass-card { padding: 30px 22px; }
+            h1 { font-size: 1.6rem; }
+            .logo { font-size: 2.8rem; }
+            .code-number { font-size: 1.4rem; letter-spacing: 4px; }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.65rem;
+            color: #6f4f31;
+        }
     </style>
 </head>
 <body>
+<div class="container">
+    <!-- بطاقة تسجيل الدخول -->
+    <div id="loginCard" class="glass-card">
+        <div class="logo">🔬✨</div>
+        <h1>عبدالخالق فيزياء</h1>
+        <div style="text-align: center;"><span class="subtitle">حيث تلتقي الفيزياء بالرومانسية</span></div>
 
-<!-- بطاقة تسجيل الدخول -->
-<div class="card" id="loginCard">
-    <div class="logo">🔬✨</div>
-    <h1>عبدالخالق فيزياء</h1>
-    <div style="text-align:center;"><span class="subtitle">حيث تلتقي الفيزياء بالرومانسية</span></div>
-    <div id="loginMessage"></div>
-    <div class="input-group"><label>📧 البريد الإلكتروني</label><input type="email" id="loginEmail" placeholder="example@domain.com"></div>
-    <div class="input-group"><label>🔒 كلمة المرور</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
-    <button class="btn" id="loginBtn">✨ دخول ✨</button>
-    <div class="register-link">ليس لديك حساب؟ <a href="#" id="showSignup">إنشاء حساب جديد</a></div>
-    <div class="romance-message">💫 تعلم الفيزياء كرحلة حب.. كل خطوة تقربك من النور 💫</div>
+        <div id="loginMessage"></div>
+
+        <div class="input-group">
+            <label>📧 البريد الإلكتروني</label>
+            <input type="email" id="loginEmail" placeholder="example@domain.com" autocomplete="email">
+        </div>
+        <div class="input-group">
+            <label>🔒 كلمة المرور</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+        </div>
+
+        <button class="btn" id="loginBtn">✨ دخول إلى عالم الفيزياء ✨</button>
+
+        <div class="toggle-link">
+            ليس لديك حساب؟ <a href="#" id="showSignupBtn">إنشاء حساب جديد</a>
+        </div>
+        <div class="romance-message">
+            💫 كل رحلة عظيمة تبدأ بخطوة... كوني أنتِ النجمة 💫
+        </div>
+    </div>
+
+    <!-- بطاقة إنشاء حساب جديد -->
+    <div id="signupCard" class="glass-card" style="display: none;">
+        <div class="logo">📖🌟</div>
+        <h1>حساب جديد</h1>
+        <div style="text-align: center;"><span class="subtitle">انضمي إلى رحلتنا الفيزيائية</span></div>
+
+        <div id="signupMessage"></div>
+
+        <div class="input-group">
+            <label>👤 الاسم (كما تظهرين في لوحتك)</label>
+            <input type="text" id="signupName" placeholder="مثال: سارة أحمد">
+        </div>
+        <div class="input-group">
+            <label>📧 البريد الإلكتروني</label>
+            <input type="email" id="signupEmail" placeholder="example@domain.com">
+        </div>
+        <div class="input-group">
+            <label>🔐 كلمة المرور</label>
+            <input type="password" id="signupPassword" placeholder="كلمة مرور قوية">
+        </div>
+
+        <button class="btn" id="signupInitBtn">📝 إنشاء الحساب</button>
+
+        <div class="toggle-link">
+            لديك حساب بالفعل؟ <a href="#" id="showLoginBtn">تسجيل الدخول</a>
+        </div>
+        <div class="romance-message">
+            ✨ كل عالمة فيزياء كانت يوماً مبتدئة.. كوني أنتِ البداية ✨
+        </div>
+    </div>
+
+    <!-- بطاقة تفعيل الحساب (تظهر بعد إنشاء الحساب) -->
+    <div id="verifyCard" class="glass-card" style="display: none;">
+        <div class="logo">✉️🔑</div>
+        <h1>تفعيل الحساب</h1>
+        <div style="text-align: center;"><span class="subtitle">أدخلي كود التفعيل لتأكيد حسابك</span></div>
+
+        <div id="verifyMessage"></div>
+
+        <div class="code-display" id="codeDisplayArea"></div>
+
+        <div class="input-group">
+            <label>📲 كود التفعيل</label>
+            <input type="text" id="verifyCodeInput" placeholder"أدخل الرقم المكون من 6 أرقام" inputmode="numeric">
+        </div>
+
+        <button class="btn" id="verifyBtn">✅ تفعيل الحساب</button>
+
+        <div class="toggle-link">
+            <a href="#" id="resendCodeBtn">🔄 إعادة إرسال الكود</a>
+        </div>
+        <div class="romance-message">
+            ✨ تحقق من بريدك الإلكتروني (محاكاة) وأدخل الكود أعلاه ✨
+        </div>
+    </div>
+
+    <footer>أ. عبد الخالق | منصة تعليمية تشخيصية رومانسية</footer>
 </div>
-
-<!-- بطاقة إنشاء الحساب -->
-<div class="card" id="signupCard" style="display: none;">
-    <div class="logo">📖🌟</div>
-    <h1>حساب جديد</h1>
-    <div style="text-align:center;"><span class="subtitle">انضمي إلى رحلتنا الفيزيائية</span></div>
-    <div id="signupMessage"></div>
-    <div class="input-group"><label>👤 الاسم</label><input type="text" id="signupName" placeholder="مثال: سارة أحمد"></div>
-    <div class="input-group"><label>📧 البريد الإلكتروني</label><input type="email" id="signupEmail" placeholder="example@domain.com"></div>
-    <div class="input-group"><label>🔐 كلمة المرور</label><input type="password" id="signupPassword" placeholder="كلمة مرور قوية"></div>
-    <button class="btn" id="signupBtn">📝 إنشاء الحساب</button>
-    <div class="register-link">لديك حساب؟ <a href="#" id="showLogin">تسجيل الدخول</a></div>
-    <div class="romance-message">✨ كل عالمة فيزياء كانت يوماً مبتدئة.. كوني أنتِ البداية ✨</div>
-</div>
-
-<!-- بطاقة تفعيل الحساب (تظهر بعد إنشاء الحساب) -->
-<div class="card" id="verifyCard" style="display: none;">
-    <div class="logo">✉️🔑</div>
-    <h1>تفعيل الحساب</h1>
-    <div style="text-align:center;"><span class="subtitle">أدخلي الكود المرسل (محاكاة)</span></div>
-    <div id="verifyMessage"></div>
-    <div class="code-box" id="codeDisplay"></div>
-    <div class="input-group"><label>📲 كود التفعيل</label><input type="text" id="verifyCode" placeholder="أدخل الرقم المكون من 6 أرقام"></div>
-    <button class="btn" id="verifyBtn">✅ تفعيل الحساب</button>
-    <div class="register-link"><a href="#" id="resendCode">إعادة إرسال الكود</a></div>
-    <div class="romance-message">✨ تحقق من بريدك (محاكاة) ثم أدخل الكود ✨</div>
-</div>
-
-<footer>أ. عبد الخالق | منصة تعليمية تشخيصية رومانسية</footer>
 
 <script>
-    // === إعدادات التخزين ===
+    // ======================== إعدادات التخزين ========================
     const STORAGE_USERS = "physics_users_v2";
     const STORAGE_SESSION = "current_user_session";
-    
-    // بيانات المالك
+
+    // بيانات المالك (للدخول إلى admin.html)
     const MASTER_EMAIL = "abdualkhaliqali115@gmail.com";
     const MASTER_PASSWORD = "yhwc pthv emeu skge";
 
-    // متغيرات عامة لتخزين بيانات الحساب الجديد مؤقتاً أثناء التفعيل
+    // متغيرات التفعيل المؤقتة
     let pendingUser = null;
-    let pendingVerificationCode = null;
+    let pendingCode = null;
 
-    // === دوال مساعدة ===
-    function getUsers() { return JSON.parse(localStorage.getItem(STORAGE_USERS) || "[]"); }
-    function saveUsers(users) { localStorage.setItem(STORAGE_USERS, JSON.stringify(users)); }
+    // الحصول على المستخدمين المخزنين
+    function getUsers() {
+        const stored = localStorage.getItem(STORAGE_USERS);
+        if (!stored) return [];
+        try {
+            return JSON.parse(stored);
+        } catch(e) {
+            return [];
+        }
+    }
 
+    // حفظ المستخدمين
+    function saveUsers(users) {
+        localStorage.setItem(STORAGE_USERS, JSON.stringify(users));
+    }
+
+    // عرض رسالة داخل عنصر معين
     function showMessage(element, msg, isSuccess = false) {
+        if (!element) return;
         element.innerHTML = `<div class="message-box ${isSuccess ? 'success-box' : ''}">${msg}</div>`;
-        setTimeout(() => { if(element) element.innerHTML = ""; }, 4000);
+        setTimeout(() => {
+            if (element) element.innerHTML = "";
+        }, 4000);
     }
 
-    function generateCode() { return Math.floor(100000 + Math.random() * 900000).toString(); }
+    // توليد كود عشوائي مكون من 6 أرقام
+    function generateCode() {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+    }
 
-    // عرض كود التفعيل للمستخدم (محاكاة البريد)
+    // عرض كود التفعيل (محاكاة)
     function showVerificationCode(email, code) {
-        const codeDisplay = document.getElementById('codeDisplay');
-        codeDisplay.innerHTML = `<div class="code-text">${code}</div><div style="margin-top:8px;">📧 تم إرسال الكود إلى: <strong>${email}</strong> (محاكاة)</div>`;
+        const codeArea = document.getElementById('codeDisplayArea');
+        if (codeArea) {
+            codeArea.innerHTML = `
+                <div class="code-number">${code}</div>
+                <div style="margin-top: 10px; font-size: 0.75rem; color: #c9ac82;">
+                    📧 تم إرسال الكود إلى البريد الإلكتروني:<br>
+                    <strong style="color:#e9c48b;">${email}</strong> (محاكاة)
+                </div>
+            `;
+        }
     }
 
-    // إنشاء حساب (مرحلة 1: تخزين مؤقت وعرض كود)
+    // الخطوة 1: إنشاء حساب (طلب كود التفعيل)
     function initiateSignup(name, email, password) {
-        if(!name || !email || !password) { showMessage(signupMessage, "✏️ الرجاء ملء جميع الحقول"); return false; }
-        if(password.length < 4) { showMessage(signupMessage, "🔐 كلمة المرور يجب أن تكون 4 أحرف على الأقل"); return false; }
+        if (!name || !email || !password) {
+            showMessage(signupMessageElem, "✏️ الرجاء ملء جميع الحقول");
+            return false;
+        }
+        if (password.length < 4) {
+            showMessage(signupMessageElem, "🔐 كلمة المرور يجب أن تكون 4 أحرف على الأقل");
+            return false;
+        }
+
         const users = getUsers();
-        if(users.find(u => u.email === email)) { showMessage(signupMessage, "📧 هذا البريد مسجل بالفعل"); return false; }
-        
-        // تخزين مؤقت
-        pendingUser = { name, email, password, role: "user", active: false };
-        pendingVerificationCode = generateCode();
-        showVerificationCode(email, pendingVerificationCode);
+        if (users.find(u => u.email === email)) {
+            showMessage(signupMessageElem, "📧 هذا البريد مسجل بالفعل. الرجاء تسجيل الدخول.");
+            return false;
+        }
+
+        // تخزين البيانات مؤقتاً
+        pendingUser = {
+            name: name,
+            email: email,
+            password: password,
+            role: "user",
+            status: "active",
+            registeredAt: new Date().toISOString()
+        };
+        pendingCode = generateCode();
+
+        // إظهار كود التفعيل للمستخدم
+        showVerificationCode(email, pendingCode);
+
         // إخفاء بطاقة التسجيل وإظهار بطاقة التفعيل
         document.getElementById('signupCard').style.display = 'none';
         document.getElementById('verifyCard').style.display = 'block';
-        showMessage(verifyMessage, "✨ تم إرسال كود التفعيل إلى بريدك (محاكاة). أدخله أدناه.", true);
+
+        showMessage(verifyMessageElem, "✨ تم إرسال كود التفعيل إلى بريدك الإلكتروني (محاكاة). أدخله أدناه.", true);
         return true;
     }
 
-    // تفعيل الحساب وإضافته نهائياً
+    // الخطوة 2: تفعيل الحساب وحفظه بشكل دائم
     function verifyAndSave(enteredCode) {
-        if(!pendingUser || !pendingVerificationCode) { window.location.reload(); return; }
-        if(enteredCode !== pendingVerificationCode) { showMessage(verifyMessage, "❌ الكود غير صحيح. حاولي مرة أخرى."); return; }
-        // تفعيل الحساب وحفظه
-        pendingUser.active = true;
+        if (!pendingUser || !pendingCode) {
+            showMessage(verifyMessageElem, "⚠️ حدث خطأ. الرجاء المحاولة مرة أخرى.");
+            return;
+        }
+
+        if (enteredCode !== pendingCode) {
+            showMessage(verifyMessageElem, "❌ الكود غير صحيح. يرجى المحاولة مرة أخرى.");
+            return;
+        }
+
+        // حفظ المستخدم الجديد
         const users = getUsers();
         users.push(pendingUser);
         saveUsers(users);
-        showMessage(verifyMessage, "✅ تم تفعيل حسابك! يمكنك الآن تسجيل الدخول.", true);
+
+        showMessage(verifyMessageElem, "✅ تم تفعيل حسابك بنجاح! يمكنك الآن تسجيل الدخول.", true);
+
         // العودة إلى شاشة الدخول بعد ثانيتين
         setTimeout(() => {
             document.getElementById('verifyCard').style.display = 'none';
             document.getElementById('loginCard').style.display = 'block';
+            // مسح الحقول
             document.getElementById('loginEmail').value = pendingUser.email;
+            document.getElementById('loginPassword').value = "";
             pendingUser = null;
-            pendingVerificationCode = null;
+            pendingCode = null;
         }, 2000);
-    }
-
-    // تسجيل الدخول
-    function handleLogin(email, password) {
-        if(!email || !password) { showMessage(loginMessage, "✉️ الرجاء إدخال البريد وكلمة المرور"); return; }
-        // المالك أولاً
-        if(email === MASTER_EMAIL && password === MASTER_PASSWORD) {
-            localStorage.setItem(STORAGE_SESSION, JSON.stringify({ email, role: "admin" }));
-            window.location.href = "admin.html";
-            return;
-        }
-        const users = getUsers();
-        const user = users.find(u => u.email === email && u.password === password);
-        if(!user) { showMessage(loginMessage, "⚠️ البريد أو كلمة المرور غير صحيحة"); return; }
-        if(!user.active) { showMessage(loginMessage, "⚠️ الحساب غير مفعل. الرجاء تفعيله أولاً."); return; }
-        localStorage.setItem(STORAGE_SESSION, JSON.stringify({ email: user.email, name: user.name, role: "user" }));
-        window.location.href = "dashboard.html";
     }
 
     // إعادة إرسال الكود
     function resendCode() {
-        if(pendingUser) {
-            pendingVerificationCode = generateCode();
-            showVerificationCode(pendingUser.email, pendingVerificationCode);
-            showMessage(verifyMessage, "🔄 تم إرسال كود جديد إلى بريدك (محاكاة)", true);
-        } else { window.location.reload(); }
+        if (pendingUser && pendingUser.email) {
+            pendingCode = generateCode();
+            showVerificationCode(pendingUser.email, pendingCode);
+            showMessage(verifyMessageElem, "🔄 تم إرسال كود جديد إلى بريدك (محاكاة).", true);
+        } else {
+            window.location.reload();
+        }
     }
 
-    // === ربط الأحداث ===
-    const loginMessage = document.getElementById('loginMessage');
-    const signupMessage = document.getElementById('signupMessage');
-    const verifyMessage = document.getElementById('verifyMessage');
-    
+    // تسجيل الدخول
+    function handleLogin(email, password) {
+        if (!email || !password) {
+            showMessage(loginMessageElem, "✉️ الرجاء إدخال البريد الإلكتروني وكلمة المرور");
+            return false;
+        }
+
+        // التحقق من المالك أولاً
+        if (email === MASTER_EMAIL && password === MASTER_PASSWORD) {
+            localStorage.setItem(STORAGE_SESSION, JSON.stringify({
+                email: email,
+                name: "المدرب عبد الخالق",
+                role: "admin"
+            }));
+            window.location.href = "admin.html";
+            return true;
+        }
+
+        // التحقق من المستخدمين العاديين
+        const users = getUsers();
+        const user = users.find(u => u.email === email && u.password === password);
+        if (!user) {
+            showMessage(loginMessageElem, "⚠️ البريد الإلكتروني أو كلمة المرور غير صحيحة");
+            return false;
+        }
+
+        // تسجيل الدخول بنجاح
+        localStorage.setItem(STORAGE_SESSION, JSON.stringify({
+            email: user.email,
+            name: user.name,
+            role: user.role || "user"
+        }));
+        window.location.href = "dashboard.html";
+        return true;
+    }
+
+    // ======================== ربط الأحداث والعناصر ========================
+    const loginMessageElem = document.getElementById('loginMessage');
+    const signupMessageElem = document.getElementById('signupMessage');
+    const verifyMessageElem = document.getElementById('verifyMessage');
+
+    // أزرار تسجيل الدخول
     document.getElementById('loginBtn').addEventListener('click', () => {
-        handleLogin(document.getElementById('loginEmail').value.trim(), document.getElementById('loginPassword').value);
+        const email = document.getElementById('loginEmail').value.trim();
+        const pwd = document.getElementById('loginPassword').value;
+        handleLogin(email, pwd);
     });
-    document.getElementById('showSignup').addEventListener('click', (e) => {
+
+    // التبديل إلى شاشة إنشاء حساب
+    document.getElementById('showSignupBtn').addEventListener('click', (e) => {
         e.preventDefault();
         document.getElementById('loginCard').style.display = 'none';
         document.getElementById('signupCard').style.display = 'block';
+        // تنظيف الرسائل
+        if (loginMessageElem) loginMessageElem.innerHTML = "";
+        if (signupMessageElem) signupMessageElem.innerHTML = "";
     });
-    document.getElementById('showLogin').addEventListener('click', (e) => {
+
+    // التبديل إلى شاشة تسجيل الدخول
+    document.getElementById('showLoginBtn').addEventListener('click', (e) => {
         e.preventDefault();
         document.getElementById('signupCard').style.display = 'none';
         document.getElementById('verifyCard').style.display = 'none';
         document.getElementById('loginCard').style.display = 'block';
+        if (loginMessageElem) loginMessageElem.innerHTML = "";
+        if (signupMessageElem) signupMessageElem.innerHTML = "";
+        if (verifyMessageElem) verifyMessageElem.innerHTML = "";
     });
-    document.getElementById('signupBtn').addEventListener('click', () => {
-        initiateSignup(
-            document.getElementById('signupName').value.trim(),
-            document.getElementById('signupEmail').value.trim(),
-            document.getElementById('signupPassword').value
-        );
+
+    // بدء إنشاء الحساب (طلب كود التفعيل)
+    document.getElementById('signupInitBtn').addEventListener('click', () => {
+        const name = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        initiateSignup(name, email, password);
     });
+
+    // تفعيل الحساب
     document.getElementById('verifyBtn').addEventListener('click', () => {
-        verifyAndSave(document.getElementById('verifyCode').value.trim());
+        const code = document.getElementById('verifyCodeInput').value.trim();
+        verifyAndSave(code);
     });
-    document.getElementById('resendCode').addEventListener('click', (e) => {
+
+    // إعادة إرسال الكود
+    document.getElementById('resendCodeBtn').addEventListener('click', (e) => {
         e.preventDefault();
         resendCode();
     });
 
-    // التحقق من جلسة نشطة
-    const session = localStorage.getItem(STORAGE_SESSION);
-    if(session && (window.location.pathname === "/" || window.location.pathname.includes("index.html"))) {
-        const s = JSON.parse(session);
-        if(s.role === "admin") window.location.href = "admin.html";
-        else if(s.role === "user") window.location.href = "dashboard.html";
+    // التحقق من وجود جلسة نشطة (إذا كان المستخدم مسجلاً بالفعل)
+    const currentSession = localStorage.getItem(STORAGE_SESSION);
+    if (currentSession && (window.location.pathname === "/" || window.location.pathname.includes("index.html"))) {
+        try {
+            const session = JSON.parse(currentSession);
+            if (session.role === "admin") {
+                window.location.href = "admin.html";
+            } else if (session.role === "user") {
+                window.location.href = "dashboard.html";
+            }
+        } catch(e) {}
     }
+
+    // السماح بإدخال الأرقام فقط في حقل كود التفعيل (اختياري)
+    document.getElementById('verifyCodeInput').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 </script>
 </body>
 </html>
