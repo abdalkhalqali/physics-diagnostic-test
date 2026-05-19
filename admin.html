@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>لوحة المالك - قراءة أي ملف JSON | عبدالخالق فيزياء</title>
+    <title>لوحة المالك - إدارة أسئلة المعيار الرابع | عبدالخالق فيزياء</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -19,36 +18,24 @@
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
         h1 { font-size: 2rem; background: linear-gradient(135deg, #f3e0be, #d4a55a); background-clip: text; -webkit-background-clip: text; color: transparent; }
         .logout-btn { background: #5e3a1f; padding: 10px 25px; border-radius: 40px; border: none; color: #f5e6d3; font-weight: bold; cursor: pointer; }
-        .tabs { display: flex; gap: 12px; margin-bottom: 30px; border-bottom: 2px solid #8b5a2b; flex-wrap: wrap; }
-        .tab-btn { background: none; border: none; color: #c9ac82; padding: 12px 28px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 40px 40px 0 0; transition: 0.2s; }
-        .tab-btn.active { background: #8b5a2b; color: white; }
-        .tab-pane { display: none; animation: fade 0.3s ease; }
-        .tab-pane.active { display: block; }
-        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
         .section { background: rgba(47, 31, 22, 0.85); backdrop-filter: blur(12px); border-radius: 48px; padding: 28px; margin-bottom: 30px; border: 1px solid rgba(199, 164, 107, 0.5); }
-        .section-title { font-size: 1.5rem; margin-bottom: 25px; border-right: 5px solid #e9b85c; padding-right: 20px; display: flex; align-items: center; gap: 10px; }
-        .filter-bar { display: flex; gap: 15px; flex-wrap: wrap; align-items: center; background: #1f130e; padding: 15px 25px; border-radius: 60px; margin-bottom: 25px; }
-        .filter-bar select, .filter-bar input, .filter-bar button { padding: 10px 20px; border-radius: 40px; background: #2c1a12; border: 1px solid #d9a13b; color: #faeedb; }
-        .filter-bar input { min-width: 250px; }
+        .section-title { font-size: 1.5rem; margin-bottom: 25px; border-right: 5px solid #e9b85c; padding-right: 20px; }
         .btn { background: linear-gradient(95deg, #7a4a1f, #a16f3a); border: none; padding: 10px 24px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; }
         .btn-sm { padding: 6px 16px; font-size: 0.75rem; }
         .btn-danger { background: linear-gradient(95deg, #8b2a2a, #b14444); }
-        .table-wrapper { overflow-x: auto; border-radius: 28px; }
+        .table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 14px 10px; text-align: right; border-bottom: 1px solid #8b5a2b; vertical-align: middle; }
+        th, td { padding: 14px 10px; text-align: right; border-bottom: 1px solid #8b5a2b; }
         th { color: #e9c48b; }
         .edit-panel { display: none; margin-top: 30px; padding: 25px; background: #1e1510; border-radius: 48px; border: 2px solid #d9a13b; }
-        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px; }
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .full-width { grid-column: span 2; }
         .form-group { display: flex; flex-direction: column; gap: 8px; }
         label { font-weight: bold; color: #ecd9b4; }
         input, select, textarea { background: #23150e; border: 1.5px solid #8b5a2b; border-radius: 28px; padding: 12px 18px; color: #faeedb; width: 100%; }
-        textarea { resize: vertical; min-height: 80px; }
-        .canvas-card { background: #0f0906; border-radius: 32px; padding: 20px; margin: 20px 0; border: 1px solid #c7a46b; }
-        .canvas-container { text-align: center; margin-bottom: 15px; }
-        canvas { background: white; border-radius: 24px; box-shadow: 0 8px 20px black; cursor: crosshair; max-width: 100%; height: auto; }
+        .canvas-card { background: #0f0906; border-radius: 32px; padding: 20px; margin: 20px 0; }
+        canvas { background: white; border-radius: 24px; cursor: crosshair; max-width: 100%; }
         .draw-tools, .color-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 15px 0; align-items: center; }
-        .slider-label { display: flex; align-items: center; gap: 10px; background: #2c1a12; padding: 5px 15px; border-radius: 40px; }
         footer { text-align: center; margin-top: 40px; color: #8b6a48; }
         @media (max-width: 800px) { .form-grid { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
     </style>
@@ -56,119 +43,107 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>🛡️ لوحة المالك – قراءة أي ملف JSON</h1>
+        <h1>🛡️ إدارة أسئلة المعيار الرابع (الرسوم البيانية)</h1>
         <button id="logoutBtn" class="logout-btn">🚪 خروج</button>
     </div>
     
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="manage">📋 إدارة الأسئلة</button>
-        <button class="tab-btn" data-tab="users">👥 المستخدمين</button>
-        <button class="tab-btn" data-tab="settings">⚙️ الإعدادات</button>
+    <div class="section">
+        <div class="section-title">📋 الأسئلة (المعيار 4)</div>
+        <div class="filter-bar" style="display: flex; gap: 15px; margin-bottom: 20px;">
+            <button id="loadQuestionsBtn" class="btn">📂 تحميل الأسئلة من standard-4.json</button>
+            <button id="addNewBtn" class="btn" style="background:#d4a55a;">➕ إضافة سؤال جديد</button>
+        </div>
+        <div id="questionsTableContainer" class="table-wrapper">
+            <div style="text-align: center; padding: 40px;">⚠️ اضغط "تحميل الأسئلة" لعرضها</div>
+        </div>
     </div>
     
-    <div id="tab-manage" class="tab-pane active">
-        <div class="section">
-            <div class="section-title">🔍 تحميل الأسئلة من أي ملف</div>
-            <div class="filter-bar">
-                <select id="sourceType">
-                    <option value="standard">📚 حسب المعيار (standard-X.json)</option>
-                    <option value="subject">📖 حسب المادة (subject.json)</option>
-                    <option value="custom">📂 ملف مخصص (أدخل المسار)</option>
-                    <option value="all">🌐 جميع الملفات (دمج)</option>
-                </select>
-                <select id="standardSelect" style="display:inline-block;"><option value="">اختر المعيار</option></select>
-                <select id="subjectSelect" style="display:none;"><option value="">اختر المادة</option><option value="mechanics">الميكانيكا</option><option value="electricity">الكهرباء</option><option value="heat_waves">الحرارة والموجات</option><option value="modern">الفيزياء الحديثة</option></select>
-                <input type="text" id="customPath" placeholder="مثال: questions/standards/standard-4.json" style="display:none;">
-                <button id="loadQuestionsBtn" class="btn">🔍 تحميل الأسئلة</button>
-                <button id="addNewBtn" class="btn" style="background:#d4a55a; color:#1f110a;">✨ إضافة سؤال جديد</button>
+    <div id="editPanel" class="edit-panel">
+        <div class="section-title">✏️ تحرير السؤال</div>
+        <form id="questionForm">
+            <input type="hidden" id="editMode" value="false">
+            <input type="hidden" id="editQuestionId" value="">
+            <input type="hidden" id="editQuestionIndex" value="">
+            <div class="form-grid">
+                <div class="form-group full-width"><label>📝 نص السؤال</label><textarea id="qText" rows="3" required></textarea></div>
+                <div class="form-group"><label>أ) الخيار الأول</label><input type="text" id="optA" required></div>
+                <div class="form-group"><label>ب) الخيار الثاني</label><input type="text" id="optB" required></div>
+                <div class="form-group"><label>ج) الخيار الثالث</label><input type="text" id="optC" required></div>
+                <div class="form-group"><label>د) الخيار الرابع</label><input type="text" id="optD" required></div>
+                <div class="form-group"><label>✅ الإجابة الصحيحة</label><select id="correct"><option value="أ">أ</option><option value="ب">ب</option><option value="ج">ج</option><option value="د">د</option></select></div>
+                <div class="form-group"><label>⭐ الصعوبة</label><select id="difficulty"><option value="easy">سهل</option><option value="medium">متوسط</option><option value="hard">صعب</option><option value="very_hard">صعب جداً</option></select></div>
+                <div class="form-group full-width"><label>💡 شرح الإجابة</label><textarea id="explanation" rows="2"></textarea></div>
             </div>
-            <div id="questionsTableContainer" class="table-wrapper"></div>
-        </div>
-        
-        <div id="editPanel" class="edit-panel">
-            <div class="section-title">✏️ تحرير السؤال</div>
-            <form id="questionForm">
-                <input type="hidden" id="editMode" value="false">
-                <input type="hidden" id="editQuestionId" value="">
-                <input type="hidden" id="editOldStandard" value="">
-                <input type="hidden" id="editOldSubject" value="">
-                <input type="hidden" id="editOldDifficulty" value="">
-                
-                <div class="form-grid">
-                    <div class="form-group full-width"><label>نص السؤال</label><textarea id="qText" rows="3" required></textarea></div>
-                    <div class="form-group"><label>أ) الخيار الأول</label><input type="text" id="optA" required></div>
-                    <div class="form-group"><label>ب) الخيار الثاني</label><input type="text" id="optB" required></div>
-                    <div class="form-group"><label>ج) الخيار الثالث</label><input type="text" id="optC" required></div>
-                    <div class="form-group"><label>د) الخيار الرابع</label><input type="text" id="optD" required></div>
-                    <div class="form-group"><label>الإجابة الصحيحة</label><select id="correct"><option value="أ">أ</option><option value="ب">ب</option><option value="ج">ج</option><option value="د">د</option></select></div>
-                    <div class="form-group"><label>المعيار</label><input type="number" id="standard" min="1" max="18"></div>
-                    <div class="form-group"><label>المادة</label><select id="subject"><option value="mechanics">الميكانيكا</option><option value="electricity">الكهرباء</option><option value="heat_waves">الحرارة والموجات</option><option value="modern">الفيزياء الحديثة</option></select></div>
-                    <div class="form-group"><label>الصعوبة</label><select id="difficulty"><option value="easy">سهل</option><option value="medium">متوسط</option><option value="hard">صعب</option><option value="very_hard">صعب جداً</option></select></div>
-                    <div class="form-group full-width"><label>شرح الإجابة</label><textarea id="explanation" rows="2"></textarea></div>
+            
+            <div class="canvas-card">
+                <div>📈 الرسم البياني (نقاط)</div>
+                <canvas id="graphCanvas" width="500" height="250"></canvas>
+                <div class="draw-tools">
+                    <button type="button" id="clearCanvas" class="btn-sm">🗑️ مسح</button>
+                    <button type="button" id="undoDraw" class="btn-sm">↩️ تراجع</button>
                 </div>
-                
-                <div class="canvas-card">
-                    <div class="slider-label">✏️ حجم القلم: <input type="range" id="penSize" min="1" max="20" value="3"></div>
-                    <div class="canvas-container"><canvas id="graphCanvas" width="550" height="280"></canvas></div>
-                    <div class="draw-tools">
-                        <button type="button" id="clearCanvas" class="btn-sm">🗑️ مسح</button>
-                        <button type="button" id="undoDraw" class="btn-sm">↩️ تراجع</button>
-                        <button type="button" id="uploadBtn" class="btn-sm">📁 رفع صورة</button>
-                        <input type="file" id="uploadImage" accept="image/*" style="display:none">
-                    </div>
-                    <div class="color-row">
-                        <label>الخط: <input type="color" id="lineColor" value="#d9a13b"></label>
-                        <label>النقاط: <input type="color" id="pointColor" value="#c7a46b"></label>
-                        <label>التعبئة: <input type="color" id="fillColor" value="#f5e6d3"></label>
-                    </div>
-                    <div id="graphPointsEditor"></div>
-                    <input type="hidden" id="graphData">
+                <div class="color-row">
+                    <label>لون الخط: <input type="color" id="lineColor" value="#d9a13b"></label>
+                    <label>لون النقاط: <input type="color" id="pointColor" value="#c7a46b"></label>
+                    <label>لون التعبئة: <input type="color" id="fillColor" value="#f5e6d3"></label>
                 </div>
-                
-                <div style="display: flex; gap: 18px; justify-content: flex-end;">
-                    <button type="submit" class="btn">💾 حفظ</button>
-                    <button type="button" id="cancelEdit" class="btn" style="background:#5e3a1f;">❌ إلغاء</button>
-                </div>
-            </form>
-        </div>
+                <div id="graphPointsEditor"></div>
+                <input type="hidden" id="graphData">
+            </div>
+            
+            <div style="display: flex; gap: 18px; justify-content: flex-end;">
+                <button type="submit" class="btn">💾 حفظ التعديلات</button>
+                <button type="button" id="cancelEdit" class="btn" style="background:#5e3a1f;">❌ إلغاء</button>
+            </div>
+        </form>
     </div>
-    
-    <div id="tab-users" class="tab-pane"><div class="section"><div class="section-title">👥 المستخدمين</div><div>قريباً</div></div></div>
-    <div id="tab-settings" class="tab-pane"><div class="section"><div class="section-title">⚙️ الإعدادات</div><button id="exportData" class="btn">📥 تصدير النسخة الحالية</button></div></div>
-    <footer>✨ يقرأ أي ملف JSON تحدده (معيار، مادة، مخصص، أو جميع الملفات)</footer>
+    <footer>✨ يقرأ الأسئلة مباشرة من ملف questions/standards/standard-4.json ✨</footer>
 </div>
 
 <script>
+    let currentQuestions = [];      // الأسئلة المحملة من الملف
+    let editingIndex = null;        // فهرس السؤال الجاري تعديله
+    
     // ------------------- الرسم -------------------
-    let graphPoints = [{x:0,y:0},{x:2,y:4}];
+    let graphPoints = [];
     let graphChart = null;
     let isDrawing = false, lastX, lastY;
     const canvas = document.getElementById('graphCanvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = 550; canvas.height = 280;
+    canvas.width = 500; canvas.height = 250;
     ctx.fillStyle = 'white'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.lineWidth = 2;
     
     function renderGraph() {
         if(graphChart) graphChart.destroy();
+        if(!graphPoints.length) { graphChart = null; return; }
         graphChart = new Chart(ctx, {
             type: 'line',
             data: { datasets: [{ data: graphPoints, borderColor: document.getElementById('lineColor').value, backgroundColor: document.getElementById('fillColor').value, pointBackgroundColor: document.getElementById('pointColor').value, tension: 0, fill: true }] },
-            options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } } }
+            options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: 'المحور X' } }, y: { title: { display: true, text: 'المحور Y' } } } }
         });
         document.getElementById('graphData').value = JSON.stringify({ points: graphPoints });
     }
+    
     function renderPointsTable() {
         let html = '<table><thead><th>#</th><th>X</th><th>Y</th><th></th></thead><tbody>';
-        graphPoints.forEach((p,i) => { html += `<tr><td>${i+1}</td><td><input type="number" class="px-${i}" value="${p.x}"></td><td><input type="number" class="py-${i}" value="${p.y}"></td><td><button onclick="removePoint(${i})">🗑️</button></td></tr>`; });
-        html += `<tr><td colspan="4"><button id="addPointBtn">➕ إضافة نقطة</button></td></tr></tbody></table>`;
+        graphPoints.forEach((p,i) => {
+            html += `<tr><td>${i+1}</td>
+                     <td><input type="number" class="px-${i}" value="${p.x}" style="width:80px"></td>
+                     <td><input type="number" class="py-${i}" value="${p.y}" style="width:80px"></td>
+                     <td><button type="button" class="btn-sm" onclick="removePoint(${i})">🗑️</button></td>
+                </tr>`;
+        });
+        html += `<tr><td colspan="4"><button type="button" id="addPointBtn" class="btn-sm">➕ إضافة نقطة</button></td></tr>`;
+        html += `</tbody></table>`;
         document.getElementById('graphPointsEditor').innerHTML = html;
-        for(let i=0;i<graphPoints.length;i++) {
-            document.querySelector(`.px-${i}`)?.addEventListener('change', (e) => { graphPoints[i].x = +e.target.value; renderGraph(); });
-            document.querySelector(`.py-${i}`)?.addEventListener('change', (e) => { graphPoints[i].y = +e.target.value; renderGraph(); });
+        for(let i=0; i<graphPoints.length; i++) {
+            document.querySelector(`.px-${i}`)?.addEventListener('change', (e) => { graphPoints[i].x = parseFloat(e.target.value); renderGraph(); });
+            document.querySelector(`.py-${i}`)?.addEventListener('change', (e) => { graphPoints[i].y = parseFloat(e.target.value); renderGraph(); });
         }
         document.getElementById('addPointBtn')?.addEventListener('click', () => { graphPoints.push({x:0,y:0}); renderPointsTable(); renderGraph(); });
     }
-    window.removePoint = (i) => { if(graphPoints.length>1) { graphPoints.splice(i,1); renderPointsTable(); renderGraph(); } };
+    window.removePoint = (idx) => { if(graphPoints.length>1) { graphPoints.splice(idx,1); renderPointsTable(); renderGraph(); } else alert('يجب وجود نقطة واحدة على الأقل'); };
     
     function startDraw(e) { isDrawing = true; let pos = getPos(e); lastX = pos.x; lastY = pos.y; ctx.beginPath(); ctx.moveTo(lastX, lastY); }
     function drawMove(e) { if(!isDrawing) return; let pos = getPos(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); lastX = pos.x; lastY = pos.y; }
@@ -184,119 +159,141 @@
     canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDraw(e.touches[0]); });
     canvas.addEventListener('touchmove', (e) => { e.preventDefault(); drawMove(e.touches[0]); });
     canvas.addEventListener('touchend', endDraw);
-    document.getElementById('penSize').addEventListener('input', (e) => ctx.lineWidth = e.target.value);
     document.getElementById('clearCanvas').addEventListener('click', () => { ctx.fillStyle = 'white'; ctx.fillRect(0,0,canvas.width,canvas.height); graphPoints = []; renderPointsTable(); renderGraph(); });
     document.getElementById('undoDraw').addEventListener('click', () => { ctx.fillStyle = 'white'; ctx.fillRect(0,0,canvas.width,canvas.height); });
-    document.getElementById('uploadBtn').addEventListener('click', () => document.getElementById('uploadImage').click());
-    document.getElementById('uploadImage').addEventListener('change', (e) => {
-        let reader = new FileReader();
-        reader.onload = (ev) => { let img = new Image(); img.onload = () => ctx.drawImage(img,0,0,canvas.width,canvas.height); img.src = ev.target.result; };
-        reader.readAsDataURL(e.target.files[0]);
-    });
     
     // ------------------- تحميل وعرض الأسئلة -------------------
-    let currentQuestions = [];
-    
-    async function loadFromUrl(url) {
+    async function loadQuestions() {
         try {
-            let res = await fetch(url);
-            if(!res.ok) throw new Error();
-            let data = await res.json();
-            if(data.questions) return data.questions;
-            if(Array.isArray(data)) return data;
-            return [];
-        } catch(e) { return []; }
+            const response = await fetch('questions/standards/standard-4.json');
+            if (!response.ok) throw new Error('الملف غير موجود');
+            const data = await response.json();
+            if (data.questions && Array.isArray(data.questions)) {
+                currentQuestions = data.questions;
+                displayQuestions();
+                alert(`تم تحميل ${currentQuestions.length} سؤال من الملف بنجاح`);
+            } else {
+                throw new Error('الملف لا يحتوي على مصفوفة questions');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('❌ فشل تحميل الملف. تأكد من وجود questions/standards/standard-4.json');
+            currentQuestions = [];
+            displayQuestions();
+        }
     }
     
-    document.getElementById('sourceType').addEventListener('change', function() {
-        let val = this.value;
-        document.getElementById('standardSelect').style.display = val === 'standard' ? 'inline-block' : 'none';
-        document.getElementById('subjectSelect').style.display = val === 'subject' ? 'inline-block' : 'none';
-        document.getElementById('customPath').style.display = val === 'custom' ? 'inline-block' : 'none';
-    });
-    
-    for(let i=1;i<=18;i++) document.getElementById('standardSelect').innerHTML += `<option value="${i}">المعيار ${i}</option>`;
-    
-    document.getElementById('loadQuestionsBtn').addEventListener('click', async () => {
-        let type = document.getElementById('sourceType').value;
-        let questions = [];
-        if(type === 'standard') {
-            let std = document.getElementById('standardSelect').value;
-            if(!std) { alert('اختر معياراً'); return; }
-            questions = await loadFromUrl(`questions/standards/standard-${std}.json`);
-        } else if(type === 'subject') {
-            let sub = document.getElementById('subjectSelect').value;
-            if(!sub) { alert('اختر مادة'); return; }
-            questions = await loadFromUrl(`questions/subjects/${sub}.json`);
-        } else if(type === 'custom') {
-            let path = document.getElementById('customPath').value;
-            if(!path) { alert('أدخل مسار الملف'); return; }
-            questions = await loadFromUrl(path);
-        } else if(type === 'all') {
-            // دمج جميع الملفات: المعايير 1-18
-            for(let i=1;i<=18;i++) {
-                let qs = await loadFromUrl(`questions/standards/standard-${i}.json`);
-                questions.push(...qs);
-            }
+    function displayQuestions() {
+        if(!currentQuestions.length) {
+            document.getElementById('questionsTableContainer').innerHTML = '<div class="section" style="text-align:center">⚠️ لا توجد أسئلة. اضغط "تحميل الأسئلة" أولاً.</div>';
+            return;
         }
-        currentQuestions = questions;
-        displayQuestions(questions);
-    });
-    
-    function displayQuestions(questions) {
-        if(!questions.length) { document.getElementById('questionsTableContainer').innerHTML = '<div class="section">⚠️ لا توجد أسئلة</div>'; return; }
-        let html = `<tr><thead><th>ID</th><th>نص السؤال</th><th>الإجراءات</th></thead><tbody>`;
-        questions.forEach((q,i) => {
-            html += `<tr><td>${q.id || i}</td><td>${q.text.substring(0,70)}...</td>
-            <td><button class="btn-sm" onclick='editQuestion(${JSON.stringify(q).replace(/\\/g, '\\\\')})'>✏️ تعديل</button>
-            <button class="btn-sm btn-danger" onclick='alert("حذف مؤقت")'>🗑️ حذف</button></td></tr>`;
+        let html = `<table><thead><th>ID</th><th>نص السؤال</th><th>الصعوبة</th><th>العمليات</th></thead><tbody>`;
+        currentQuestions.forEach((q, idx) => {
+            html += `<tr>
+                <td>${q.id || idx+1}</td>
+                <td>${(q.text || '').substring(0, 80)}...</td>
+                <td>${q.difficulty || 'متوسط'}</td>
+                <td>
+                    <button class="btn-sm" onclick='editQuestion(${idx})'>✏️ تعديل</button>
+                    <button class="btn-sm btn-danger" onclick='deleteQuestion(${idx})'>🗑️ حذف</button>
+                </td>
+            </tr>`;
         });
         html += `</tbody></table>`;
         document.getElementById('questionsTableContainer').innerHTML = html;
     }
     
-    window.editQuestion = function(q) {
-        document.getElementById('editPanel').style.display = 'block';
+    window.editQuestion = (idx) => {
+        const q = currentQuestions[idx];
+        editingIndex = idx;
         document.getElementById('editMode').value = 'true';
-        document.getElementById('editQuestionId').value = q.id;
-        document.getElementById('qText').value = q.text;
-        if(q.options) { document.getElementById('optA').value = q.options[0]; document.getElementById('optB').value = q.options[1]; document.getElementById('optC').value = q.options[2]; document.getElementById('optD').value = q.options[3]; }
+        document.getElementById('editQuestionIndex').value = idx;
+        document.getElementById('qText').value = q.text || '';
+        document.getElementById('optA').value = (q.options && q.options[0]) || '';
+        document.getElementById('optB').value = (q.options && q.options[1]) || '';
+        document.getElementById('optC').value = (q.options && q.options[2]) || '';
+        document.getElementById('optD').value = (q.options && q.options[3]) || '';
         document.getElementById('correct').value = q.correct || 'أ';
-        document.getElementById('standard').value = q.standard || 4;
-        document.getElementById('subject').value = q.subject || 'mechanics';
-        document.getElementById('difficulty').value = q.difficulty || 'easy';
+        document.getElementById('difficulty').value = q.difficulty || 'medium';
         document.getElementById('explanation').value = q.explanation || '';
-        if(q.graph?.points) { graphPoints = q.graph.points; renderPointsTable(); renderGraph(); }
-        else { graphPoints = [{x:0,y:0},{x:2,y:4}]; renderPointsTable(); renderGraph(); }
+        if (q.graph && q.graph.points) {
+            graphPoints = q.graph.points;
+        } else {
+            graphPoints = [{x:0,y:0}, {x:2,y:4}];
+        }
+        renderPointsTable();
+        renderGraph();
+        document.getElementById('editPanel').style.display = 'block';
         document.getElementById('editPanel').scrollIntoView({ behavior: 'smooth' });
     };
     
+    window.deleteQuestion = (idx) => {
+        if(confirm('⚠️ هل أنت متأكد من حذف هذا السؤال نهائياً؟')) {
+            currentQuestions.splice(idx, 1);
+            displayQuestions();
+            alert('تم الحذف مؤقتاً. لحفظ التغييرات نهائياً، يجب ربط الحفظ بالخادم.');
+        }
+    };
+    
+    document.getElementById('loadQuestionsBtn').addEventListener('click', () => {
+        loadQuestions();
+    });
+    
     document.getElementById('addNewBtn').addEventListener('click', () => {
+        editingIndex = null;
         document.getElementById('editMode').value = 'false';
         document.getElementById('questionForm').reset();
-        graphPoints = [{x:0,y:0},{x:2,y:4}]; renderPointsTable(); renderGraph();
+        graphPoints = [{x:0,y:0}, {x:2,y:4}];
+        renderPointsTable();
+        renderGraph();
         document.getElementById('editPanel').style.display = 'block';
     });
-    document.getElementById('cancelEdit').addEventListener('click', () => { document.getElementById('editPanel').style.display = 'none'; });
-    document.getElementById('questionForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('تم حفظ التعديلات في الذاكرة. للحفظ الفعلي في الملفات، نحتاج إلى خادم خلفي أو API.');
+    
+    document.getElementById('cancelEdit').addEventListener('click', () => {
         document.getElementById('editPanel').style.display = 'none';
     });
     
-    document.getElementById('exportData').addEventListener('click', () => {
-        let blob = new Blob([JSON.stringify(currentQuestions, null, 2)], {type:'application/json'});
-        let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'questions_export.json'; a.click();
+    document.getElementById('questionForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newQuestion = {
+            id: (editingIndex !== null && currentQuestions[editingIndex]) ? currentQuestions[editingIndex].id : Date.now(),
+            text: document.getElementById('qText').value,
+            options: [
+                document.getElementById('optA').value,
+                document.getElementById('optB').value,
+                document.getElementById('optC').value,
+                document.getElementById('optD').value
+            ],
+            correct: document.getElementById('correct').value,
+            difficulty: document.getElementById('difficulty').value,
+            explanation: document.getElementById('explanation').value,
+            graph: JSON.parse(document.getElementById('graphData').value || '{"points":[]}')
+        };
+        if (editingIndex !== null) {
+            currentQuestions[editingIndex] = newQuestion;
+            alert('تم تعديل السؤال مؤقتاً. لحفظ التغييرات نهائياً، يجب ربط الحفظ بالخادم.');
+        } else {
+            currentQuestions.push(newQuestion);
+            alert('تم إضافة السؤال مؤقتاً.');
+        }
+        displayQuestions();
+        document.getElementById('editPanel').style.display = 'none';
     });
     
-    // أمان المالك
-    let session = localStorage.getItem('current_user_session');
-    if(!session) window.location.href = 'index.html';
-    let user = JSON.parse(session);
-    if(user.role !== 'admin') window.location.href = 'index.html';
-    document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.removeItem('current_user_session'); window.location.href = 'index.html'; });
-    renderPointsTable(); renderGraph();
-    document.getElementById('sourceType').dispatchEvent(new Event('change'));
+    // ------------------- أمان المالك -------------------
+    const session = localStorage.getItem('current_user_session');
+    if (!session) window.location.href = 'index.html';
+    const user = JSON.parse(session);
+    if (user.role !== 'admin') window.location.href = 'index.html';
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        localStorage.removeItem('current_user_session');
+        window.location.href = 'index.html';
+    });
+    
+    // تهيئة أولية (لا تحمل الأسئلة تلقائياً حتى لا يحدث خطأ)
+    renderPointsTable();
+    renderGraph();
 </script>
 </body>
 </html>
