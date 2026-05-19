@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>لوحة الطالب | عبدالخالق فيزياء</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,38 +13,96 @@
             padding: 20px;
             color: #f5e6d3;
         }
-        .container { max-width: 1100px; margin: 0 auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
         h1 { font-size: 1.8rem; background: linear-gradient(135deg, #ecd9b4, #c7a46b); background-clip: text; -webkit-background-clip: text; color: transparent; }
         .logout-btn { background: #5e3a1f; padding: 8px 20px; border-radius: 40px; color: #f5e6d3; border: none; cursor: pointer; }
         
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .notifications-area {
+            background: #1e1510;
+            border-radius: 28px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-right: 4px solid #d9a13b;
+        }
+        .notification-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #4f311e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notification-close { background: none; border: none; color: #b49166; cursor: pointer; font-size: 1.2rem; }
+        .new-notif { color: #e9c48b; font-weight: bold; }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: #2f1f16b3;
+            backdrop-filter: blur(4px);
+            border-radius: 24px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #c7a46b40;
+        }
+        .stat-number { font-size: 1.8rem; font-weight: bold; color: #e9c48b; }
+        .stat-label { font-size: 0.75rem; color: #c9ac82; margin-top: 5px; }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
         .card {
-            background: rgba(47, 31, 22, 0.85);
+            background: #2f1f16b3;
             backdrop-filter: blur(4px);
             border-radius: 28px;
             padding: 20px;
+            border: 1px solid #c7a46b40;
             cursor: pointer;
             transition: 0.2s;
-            border: 1px solid rgba(199, 164, 107, 0.4);
-            text-align: center;
         }
-        .card:hover { background: #3d2a1f; transform: translateY(-3px); }
+        .card:hover { transform: translateY(-3px); background: #3d2a1f; }
         .card h3 { color: #e9c48b; margin-bottom: 8px; }
         
+        .section {
+            background: #2f1f16b3;
+            border-radius: 28px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #c7a46b40;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-right: 3px solid #d9a13b;
+            padding-right: 12px;
+        }
+        
         .selector-area {
-            background: rgba(47, 31, 22, 0.85);
+            background: #2f1f16b3;
             border-radius: 28px;
             padding: 25px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(199, 164, 107, 0.4);
+            margin-bottom: 25px;
             text-align: center;
+            display: none;
         }
-        select, button {
+        .selector-area select, .selector-area button {
             padding: 12px 20px;
             border-radius: 40px;
             font-size: 1rem;
-            font-family: inherit;
             margin: 5px;
         }
         select {
@@ -52,26 +110,30 @@
             border: 1px solid #8b5a2b;
             color: #faeedb;
         }
+        
         .btn {
             background: linear-gradient(95deg, #7a4a1f, #9b6737);
             border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
             color: white;
             cursor: pointer;
             font-weight: bold;
         }
+        .btn-sm { padding: 6px 15px; font-size: 0.75rem; }
         
         .exam-area {
-            background: rgba(47, 31, 22, 0.9);
-            border-radius: 28px;
-            padding: 25px;
+            background: #1e1510;
+            border-radius: 24px;
+            padding: 20px;
             margin-top: 20px;
             display: none;
         }
         .question-box {
-            background: #1e1510;
-            border-radius: 24px;
+            background: #23150e;
+            border-radius: 20px;
             padding: 20px;
-            margin: 20px 0;
+            margin: 15px 0;
         }
         .graph-container {
             background: white;
@@ -91,19 +153,27 @@
         }
         .option.selected { background: #d9a13b; color: #1f110a; font-weight: bold; }
         .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
-        .result-card {
-            background: #1e1510;
-            border-radius: 24px;
-            padding: 20px;
-            margin-top: 20px;
+        .result-card { background: #1e1510; border-radius: 24px; padding: 20px; margin-top: 20px; }
+        .wrong-item { border-right: 3px solid #e74c3c; padding: 10px; margin: 10px 0; background: #2a1a12; }
+        .progress-bar { background: #3d2a1f; border-radius: 20px; height: 8px; margin: 10px 0; }
+        .progress-fill { background: #d9a13b; width: 0%; height: 100%; border-radius: 20px; }
+        
+        .day-item {
+            background: #23150e;
+            border-radius: 20px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
-        .wrong-item {
-            border-right: 3px solid #e74c3c;
-            padding: 10px;
-            margin: 10px 0;
-            background: #2a1a12;
-        }
-        footer { text-align: center; margin-top: 40px; color: #6f4f31; font-size: 0.75rem; }
+        .status-completed { color: #6fcf97; }
+        .status-inprogress { color: #e9c48b; }
+        .status-locked { color: #8b5a2b; }
+        
+        footer { text-align: center; margin-top: 30px; color: #6f4f31; }
+        @media (max-width: 600px) { .day-item { flex-direction: column; gap: 10px; } .card-grid { grid-template-columns: 1fr; } }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
@@ -114,6 +184,16 @@
         <button id="logoutBtn" class="logout-btn">🚪 خروج</button>
     </div>
 
+    <div class="notifications-area">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span>🔔 الإشعارات</span>
+            <button id="clearAllNotif" class="btn-sm" style="background:#3d2a1f;">مسح الكل</button>
+        </div>
+        <div id="notificationsList"></div>
+    </div>
+
+    <div class="stats-grid" id="statsGrid"></div>
+
     <div class="card-grid">
         <div class="card" onclick="showStandardSelector()"><h3>📚 اختبار حسب المعيار</h3><p>اختر المعيار (1-18)</p></div>
         <div class="card" onclick="startRandomExam()"><h3>🎲 اختبار عشوائي</h3><p>أسئلة من جميع المعايير</p></div>
@@ -122,14 +202,14 @@
     </div>
 
     <!-- منطقة اختيار المعيار -->
-    <div id="standardSelector" class="selector-area" style="display: none;">
-        <h3>اختر المعيار</h3>
+    <div id="standardSelector" class="selector-area">
+        <h3>📌 اختر المعيار</h3>
         <select id="standardSelect">
-            <option value="">-- اختر معيار --</option>
+            <option value="">-- اختر معياراً --</option>
             <option value="1">المعيار 1: طبيعة العلم</option>
             <option value="2">المعيار 2: المنهج العلمي</option>
             <option value="3">المعيار 3: المختبرات والسلامة</option>
-            <option value="4">المعيار 4: المهارات الرياضية والإحصائية</option>
+            <option value="4">المعيار 4: المهارات الرياضية والإحصائية (الرسوم البيانية)</option>
             <option value="5">المعيار 5: الميكانيكا</option>
             <option value="6">المعيار 6: الموائع</option>
             <option value="7">المعيار 7: خواص المادة</option>
@@ -145,236 +225,227 @@
             <option value="17">المعيار 17: مهارات التدريس</option>
             <option value="18">المعيار 18: استراتيجيات التدريس والتقويم</option>
         </select>
-        <button class="btn" onclick="loadStandardExam()">ابدأ الاختبار</button>
+        <button class="btn" onclick="loadStandardExam()">🎯 ابدأ الاختبار</button>
         <button class="btn" onclick="document.getElementById('standardSelector').style.display='none'" style="background:#5e3a1f;">إلغاء</button>
     </div>
 
+    <div class="section">
+        <div class="section-title">📊 تقدمي الدراسي</div>
+        <div id="progressContent"></div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🎯 التدريب اليومي – رحلتك إلى الإتقان</div>
+        <div id="dailyTrainingContent"></div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🏆 الإنجازات والشارات</div>
+        <div id="achievementsContent"></div>
+    </div>
+
     <div id="examArea" class="exam-area"></div>
+    <footer>أ. عبد الخالق | حيث تلتقي الفيزياء بالرومانسية</footer>
 </div>
 
 <script>
-    let currentQuestions = [];
-    let currentIndex = 0;
-    let userAnswers = [];
-    let currentGraphs = {}; // لتخزين كائنات Chart.js لكل رسم
-
-    // إظهار قائمة المعايير
+    // ------------------- بيانات مؤقتة للتدريب اليومي (سيتم ربطها بملفات JSON لاحقاً) -------------------
+    const questionsBank = {
+        easy: [
+            { id: 1, text: "وحدة قياس القوة في النظام الدولي هي؟", options: ["نيوتن", "جول", "واط", "باسكال"], correct: "أ", explanation: "النيوتن هو وحدة قياس القوة." },
+            { id: 2, text: "قانون نيوتن الثاني ينص على:", options: ["F = m/a", "F = m × a", "F = m + a", "F = m - a"], correct: "ب", explanation: "القوة = الكتلة × التسارع" }
+        ],
+        medium: [
+            { id: 3, text: "سيارة كتلتها 1000kg تتحرك بسرعة 20m/s، ما طاقتها الحركية؟", options: ["10000 J", "20000 J", "200000 J", "400000 J"], correct: "ج", explanation: "KE = ½ × 1000 × 400 = 200000J" }
+        ],
+        hard: [],
+        very_hard: []
+    };
+    const dailyLevels = ["easy","easy","easy","easy","easy","easy","easy","medium","medium","medium","medium","medium","medium","medium","hard","hard","hard","hard","hard","hard","hard","very_hard","very_hard","very_hard","very_hard","very_hard","very_hard","very_hard","very_hard","very_hard"];
+    
+    let currentUser = null;
+    let trainingProgress = { currentDay: 1, daysCompleted: [], dayDetails: {} };
+    let examResults = [];
+    let notifications = [];
+    let currentExamQuestions = [], currentExamIndex = 0, currentExamAnswers = [], currentExamCallback = null, currentGraphs = {};
+    
+    // دوال التخزين المحلي
+    function loadUserData() {
+        const session = localStorage.getItem('current_user_session');
+        if (!session) { window.location.href = 'index.html'; return null; }
+        const user = JSON.parse(session);
+        if (user.role !== 'user') { window.location.href = 'index.html'; return null; }
+        currentUser = user;
+        const savedTraining = localStorage.getItem(`training_${user.email}`);
+        if (savedTraining) trainingProgress = JSON.parse(savedTraining);
+        else { trainingProgress = { currentDay: 1, daysCompleted: [], dayDetails: {} }; saveTrainingProgress(); }
+        const savedResults = localStorage.getItem(`results_${user.email}`);
+        if (savedResults) examResults = JSON.parse(savedResults);
+        const savedNotif = localStorage.getItem(`notifications_${user.email}`);
+        if (savedNotif) notifications = JSON.parse(savedNotif);
+        else { notifications = [{ id: Date.now(), text: "✨ أهلاً بكِ في منصة عبدالخالق فيزياء!", read: false, date: new Date().toISOString() }]; saveNotifications(); }
+        return user;
+    }
+    function saveTrainingProgress() { localStorage.setItem(`training_${currentUser.email}`, JSON.stringify(trainingProgress)); }
+    function saveExamResults() { localStorage.setItem(`results_${currentUser.email}`, JSON.stringify(examResults)); }
+    function saveNotifications() { localStorage.setItem(`notifications_${currentUser.email}`, JSON.stringify(notifications)); renderNotifications(); }
+    function addNotification(text) { notifications.unshift({ id: Date.now(), text, read: false, date: new Date().toISOString() }); saveNotifications(); }
+    
+    function getQuestionsByDifficulty(level, count = 5) { const bank = questionsBank[level] || []; const shuffled = [...bank]; for(let i=shuffled.length-1; i>0; i--) { const j = Math.floor(Math.random()*(i+1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; } return shuffled.slice(0, count); }
+    function getCurrentDayDifficulty() { return trainingProgress.currentDay <= 30 ? dailyLevels[trainingProgress.currentDay-1] : "very_hard"; }
+    function getTodayQuestions() { return getQuestionsByDifficulty(getCurrentDayDifficulty(), 5); }
+    
+    // ------------------- عرض قائمة المعايير -------------------
     window.showStandardSelector = function() {
         document.getElementById('standardSelector').style.display = 'block';
         document.getElementById('examArea').style.display = 'none';
     };
-
-    // تحميل اختبار حسب المعيار
+    
+    // ------------------- تحميل اختبار المعيار من JSON -------------------
     window.loadStandardExam = async function() {
         const standardId = document.getElementById('standardSelect').value;
-        if (!standardId) {
-            alert('الرجاء اختيار معيار أولاً');
-            return;
-        }
+        if (!standardId) { alert('الرجاء اختيار معيار أولاً'); return; }
         document.getElementById('standardSelector').style.display = 'none';
-        
-        // محاولة تحميل ملف الأسئلة الخاص بالمعيار
         try {
             const response = await fetch(`questions/standards/standard-${standardId}.json`);
             if (!response.ok) throw new Error('الملف غير موجود');
             const data = await response.json();
-            if (!data.questions || data.questions.length === 0) {
-                alert('لا توجد أسئلة لهذا المعيار حالياً. سيتم إضافتها قريباً.');
-                return;
-            }
-            startExam(data.questions);
+            if (!data.questions || data.questions.length === 0) throw new Error('لا توجد أسئلة');
+            startExam(data.questions, `المعيار ${standardId}`);
         } catch (error) {
             console.error(error);
             alert(`⚠️ المعيار ${standardId} لا يحتوي على أسئلة بعد. الرجاء إضافة أسئلة من لوحة المالك أولاً.`);
+            document.getElementById('standardSelector').style.display = 'block';
         }
     };
-
-    // اختبار عشوائي (تجريبي)
+    
+    // ------------------- اختبار عشوائي (يجمع من جميع ملفات المعايير الموجودة) -------------------
     window.startRandomExam = async function() {
-        // مؤقتاً: نعرض رسالة
-        alert('سيتم تفعيل الاختبار العشوائي قريباً. حالياً يمكنك تجربة الاختبار حسب المعيار.');
+        let allQuestions = [];
+        for (let i = 1; i <= 18; i++) {
+            try {
+                const res = await fetch(`questions/standards/standard-${i}.json`);
+                if (res.ok) { const data = await res.json(); if (data.questions) allQuestions.push(...data.questions); }
+            } catch(e) {}
+        }
+        if (allQuestions.length === 0) { alert('لا توجد أسئلة متاحة حالياً. أضف أسئلة من لوحة المالك أولاً.'); return; }
+        for (let i = allQuestions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [allQuestions[i], allQuestions[j]] = [allQuestions[j], allQuestions[i]]; }
+        startExam(allQuestions.slice(0, 10), 'اختبار عشوائي');
     };
-
-    // بدء الاختبار بالأسئلة المحملة
-    function startExam(questions) {
-        currentQuestions = questions;
-        currentIndex = 0;
-        userAnswers = new Array(questions.length).fill(null);
+    
+    // ------------------- بدء الاختبار -------------------
+    function startExam(questions, examName) {
+        currentExamQuestions = questions;
+        currentExamIndex = 0;
+        currentExamAnswers = new Array(questions.length).fill(null);
+        currentExamCallback = (answers) => {
+            let score = 0;
+            questions.forEach((q, idx) => { if (answers[idx] === q.correct) score++; });
+            const percentage = Math.round((score / questions.length) * 100);
+            const result = { id: Date.now(), type: examName, score, total: questions.length, percentage, date: new Date().toISOString() };
+            examResults.unshift(result);
+            saveExamResults();
+            addNotification(`📊 أتممتِ ${examName}. نتيجتك: ${score}/${questions.length} (${percentage}%)`);
+            renderProgress(); renderStats(); renderAchievements();
+            document.getElementById('examArea').style.display = 'none';
+            displayExamResult(questions, answers, score, percentage);
+        };
         renderCurrentQuestion();
         document.getElementById('examArea').style.display = 'block';
     }
-
-    // عرض السؤال الحالي مع رسمه البياني إن وجد
+    
     function renderCurrentQuestion() {
-        const q = currentQuestions[currentIndex];
-        const area = document.getElementById('examArea');
-        
+        const q = currentExamQuestions[currentExamIndex];
         let graphHtml = '';
         if (q.graph && q.graph.points && q.graph.points.length > 0) {
-            graphHtml = `
-                <div class="graph-container">
-                    <canvas id="graphCanvas_${currentIndex}" width="450" height="220" style="max-width:100%; height:auto"></canvas>
-                </div>
-            `;
+            graphHtml = `<div class="graph-container"><canvas id="graphCanvas_${currentExamIndex}" width="450" height="220" style="max-width:100%; height:auto"></canvas></div>`;
         }
-        
         let optionsHtml = '';
         q.options.forEach(opt => {
             const letter = opt.charAt(0);
-            const isSelected = (userAnswers[currentIndex] === letter);
-            optionsHtml += `<div class="option ${isSelected ? 'selected' : ''}" data-val="${letter}" onclick="selectOption(this, ${currentIndex}, '${letter}')">${opt}</div>`;
+            const isSelected = (currentExamAnswers[currentExamIndex] === letter);
+            optionsHtml += `<div class="option ${isSelected ? 'selected' : ''}" data-val="${letter}" onclick="selectOption(this, '${letter}')">${opt}</div>`;
         });
-        
-        let html = `
-            <h3>📝 السؤال ${currentIndex+1} من ${currentQuestions.length}</h3>
+        const html = `
+            <h3>📝 السؤال ${currentExamIndex+1} من ${currentExamQuestions.length}</h3>
             <div class="question-box">
                 <p><strong>${q.text}</strong></p>
                 ${graphHtml}
-                <div class="options" id="optionsContainer_${currentIndex}">${optionsHtml}</div>
+                <div class="options" id="optionsContainer">${optionsHtml}</div>
                 <div class="nav-buttons">
-                    <button class="btn" onclick="prevQuestion()" ${currentIndex === 0 ? 'disabled' : ''}>⟳ السابق</button>
-                    <button class="btn" onclick="nextQuestion()">${currentIndex === currentQuestions.length-1 ? '🏁 إنهاء' : 'التالي →'}</button>
+                    <button class="btn" onclick="prevQuestion()" ${currentExamIndex === 0 ? 'disabled' : ''}>⟳ السابق</button>
+                    <button class="btn" onclick="nextQuestion()">${currentExamIndex === currentExamQuestions.length-1 ? '🏁 إنهاء' : 'التالي →'}</button>
                 </div>
             </div>
         `;
-        
-        area.innerHTML = html;
-        
-        // رسم الرسم البياني بعد ظهور الـ canvas
+        document.getElementById('examArea').innerHTML = html;
         if (q.graph && q.graph.points && q.graph.points.length > 0) {
-            drawGraphForQuestion(q.graph, `graphCanvas_${currentIndex}`);
+            drawGraphForQuestion(q.graph, `graphCanvas_${currentExamIndex}`);
         }
     }
     
     function drawGraphForQuestion(graphData, canvasId) {
         const canvas = document.getElementById(canvasId);
         if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        // تدمير الرسم السابق إن وجد
         if (currentGraphs[canvasId]) currentGraphs[canvasId].destroy();
-        
-        currentGraphs[canvasId] = new Chart(ctx, {
+        currentGraphs[canvasId] = new Chart(canvas.getContext('2d'), {
             type: graphData.type || 'line',
-            data: {
-                datasets: [{
-                    label: graphData.yLabel || 'القيمة',
-                    data: graphData.points,
-                    borderColor: '#d9a13b',
-                    backgroundColor: 'rgba(217,161,59,0.05)',
-                    borderWidth: 3,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#c7a46b',
-                    tension: 0,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                scales: {
-                    x: { title: { display: true, text: graphData.xLabel || 'الزمن (s)' } },
-                    y: { title: { display: true, text: graphData.yLabel || 'القيمة' } }
-                },
-                plugins: { legend: { display: false } }
+            data: { datasets: [{ label: graphData.yLabel || 'القيمة', data: graphData.points, borderColor: '#d9a13b', borderWidth: 3, pointRadius: 5, pointBackgroundColor: '#c7a46b', tension: 0, fill: false }] },
+            options: { responsive: true, maintainAspectRatio: true, scales: { x: { title: { display: true, text: graphData.xLabel || 'الزمن (s)' } }, y: { title: { display: true, text: graphData.yLabel || 'القيمة' } } }, plugins: { legend: { display: false } } }
+        });
+    }
+    
+    window.selectOption = function(element, value) { currentExamAnswers[currentExamIndex] = value; document.querySelectorAll('#optionsContainer .option').forEach(opt => opt.classList.remove('selected')); element.classList.add('selected'); };
+    window.nextQuestion = function() { if (!currentExamAnswers[currentExamIndex]) { alert('الرجاء اختيار إجابة'); return; } if (currentExamIndex === currentExamQuestions.length-1) currentExamCallback(currentExamAnswers); else { currentExamIndex++; renderCurrentQuestion(); } };
+    window.prevQuestion = function() { if (currentExamIndex > 0) { currentExamIndex--; renderCurrentQuestion(); } };
+    
+    function displayExamResult(questions, answers, score, percentage) {
+        let wrongHtml = '';
+        questions.forEach((q, idx) => {
+            if (answers[idx] !== q.correct) {
+                wrongHtml += `<div class="wrong-item"><strong>❌ ${q.text}</strong><br>إجابتك: ${answers[idx] || 'لم تجب'} | الصحيح: ${q.correct}<br>📘 ${q.explanation || 'لا يوجد شرح'}</div>`;
             }
         });
+        let levelMsg = percentage >= 80 ? '🌟 ممتاز! أنتِ في الطريق الصحيح.' : (percentage >= 60 ? '📚 جيد، لكن هناك مجال للتحسين.' : '💪 لا تقلقي، هذا التشخيص يظهر لنا أين نركز.');
+        document.getElementById('examArea').innerHTML = `<div class="result-card"><h3>✅ نتيجتك: ${score}/${questions.length} (${percentage}%)</h3><p>${levelMsg}</p><h4>📋 تفصيل الأخطاء:</h4>${wrongHtml || '<p style="color:#6fcf97;">✨ مذهلة! لا توجد أخطاء. ✨</p>'}<button class="btn" onclick="location.reload()">🔄 اختبار جديد</button></div>`;
     }
     
-    window.selectOption = function(element, idx, value) {
-        // تحديث الإجابة
-        userAnswers[idx] = value;
-        // تحديث الواجهة
-        const container = document.getElementById(`optionsContainer_${idx}`);
-        if (container) {
-            Array.from(container.children).forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-        }
-    };
-    
-    window.nextQuestion = function() {
-        if (!userAnswers[currentIndex]) {
-            alert('الرجاء اختيار إجابة قبل الانتقال');
-            return;
-        }
-        if (currentIndex === currentQuestions.length - 1) {
-            finishExam();
-        } else {
-            currentIndex++;
-            renderCurrentQuestion();
-        }
-    };
-    
-    window.prevQuestion = function() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            renderCurrentQuestion();
-        }
-    };
-    
-    function finishExam() {
-        let score = 0;
-        let details = [];
-        currentQuestions.forEach((q, idx) => {
-            const isCorrect = (userAnswers[idx] === q.correct);
-            if (isCorrect) score++;
-            details.push({
-                question: q.text,
-                userAnswer: userAnswers[idx] || 'لم تجب',
-                correctAnswer: q.correct,
-                isCorrect: isCorrect,
-                explanation: q.explanation || 'لا يوجد شرح'
-            });
-        });
-        const percentage = Math.round((score / currentQuestions.length) * 100);
-        
-        let wrongHtml = '';
-        details.filter(d => !d.isCorrect).forEach(d => {
-            wrongHtml += `<div class="wrong-item"><strong>❌ ${d.question}</strong><br>إجابتك: ${d.userAnswer} | الصحيح: ${d.correctAnswer}<br>📘 ${d.explanation}</div>`;
-        });
-        
-        let levelMsg = '';
-        if (percentage >= 80) levelMsg = '🌟 ممتاز! أنتِ في الطريق الصحيح. 🌟';
-        else if (percentage >= 60) levelMsg = '📚 جيد، لكن هناك مجال للتحسين. راجعي الأخطاء أدناه.';
-        else levelMsg = '💪 لا تقلقي، هذا التشخيص يظهر لنا أين نركز. أنا معكِ خطوة بخطوة.';
-        
-        const resultHtml = `
-            <div class="result-card">
-                <h3>✅ نتيجتك: ${score}/${currentQuestions.length} (${percentage}%)</h3>
-                <p>${levelMsg}</p>
-                <h4>📋 تفصيل الأخطاء:</h4>
-                ${wrongHtml || '<p style="color:#6fcf97;">✨ مذهلة! لا توجد أخطاء. أنتِ جاهزة للاختبار الحقيقي. ✨</p>'}
-                <button class="btn" onclick="location.reload()">🔄 اختبار جديد</button>
-            </div>
-        `;
-        
-        document.getElementById('examArea').innerHTML = resultHtml;
-        
-        // حفظ النتيجة في LocalStorage
-        const session = JSON.parse(localStorage.getItem('current_user_session'));
-        if (session && session.email) {
-            let results = JSON.parse(localStorage.getItem(`results_${session.email}`) || '[]');
-            results.unshift({
-                examType: 'standard',
-                examId: document.getElementById('standardSelect').value,
-                score: score,
-                total: currentQuestions.length,
-                percentage: percentage,
-                date: new Date().toISOString()
-            });
-            localStorage.setItem(`results_${session.email}`, JSON.stringify(results));
-        }
+    // ------------------- دوال العرض -------------------
+    function renderStats() {
+        const totalTests = examResults.length;
+        const avg = totalTests > 0 ? Math.round(examResults.reduce((a,b)=>a+b.percentage,0)/totalTests) : 0;
+        document.getElementById('statsGrid').innerHTML = `<div class="stat-card"><div class="stat-number">${totalTests}</div><div class="stat-label">📊 عدد الاختبارات</div></div><div class="stat-card"><div class="stat-number">${avg}%</div><div class="stat-label">⭐ متوسط الدرجات</div></div><div class="stat-card"><div class="stat-number">${trainingProgress.daysCompleted.length}</div><div class="stat-label">🎯 أيام مكتملة</div></div><div class="stat-card"><div class="stat-number">${trainingProgress.currentDay-1}</div><div class="stat-label">📅 اليوم الحالي</div></div>`;
     }
+    function renderProgress() {
+        let lastHtml = examResults.slice(0,5).map(r => `<div class="day-item"><span>${r.type} – ${r.date.substring(0,10)}</span><span>${r.score}/${r.total} (${r.percentage}%)</span></div>`).join('');
+        document.getElementById('progressContent').innerHTML = `<div style="margin-bottom:15px"><strong>📋 آخر 5 اختبارات:</strong></div>${lastHtml || '<p>لا توجد اختبارات سابقة</p>'}<div class="progress-bar"><div class="progress-fill" style="width: ${Math.min(100, (trainingProgress.daysCompleted.length/30)*100)}%"></div></div><div><strong>💡 توصية اليوم:</strong> راجعي الأسئلة الخاطئة في التدريب اليومي.</div>`;
+    }
+    function renderDailyTraining() {
+        const currentDay = trainingProgress.currentDay;
+        let daysHtml = '';
+        for(let i=1; i<=30; i++) {
+            let status = '', statusText = '', statusClass = '';
+            if(trainingProgress.daysCompleted.includes(i)) { status = '✅'; statusText = 'مكتمل'; statusClass = 'status-completed'; }
+            else if(i === currentDay) { status = '⏳'; statusText = 'قيد التدريب'; statusClass = 'status-inprogress'; }
+            else { status = '🔒'; statusText = 'غير متاح'; statusClass = 'status-locked'; }
+            daysHtml += `<div class="day-item"><span>📅 اليوم ${i}</span><span class="day-status ${statusClass}">${status} ${statusText}</span></div>`;
+        }
+        document.getElementById('dailyTrainingContent').innerHTML = `<div><strong>🔥 يومك الحالي: ${currentDay} من 30</strong></div><div class="progress-bar"><div class="progress-fill" style="width: ${(trainingProgress.daysCompleted.length/30)*100}%"></div></div><button class="btn" onclick="alert('سيتم تفعيل التدريب اليومي قريباً')" style="margin:15px 0">🎯 ابدأ التدريب اليومي</button>${daysHtml}`;
+    }
+    function renderAchievements() {
+        document.getElementById('achievementsContent').innerHTML = '<div style="display:flex; flex-wrap:wrap; gap:10px;"><div style="background:#23150e; border-radius:20px; padding:8px 15px;">🥇 أول اختبار '+(examResults.length>=1?'✅':'⏳')+'</div><div style="background:#23150e; border-radius:20px; padding:8px 15px;">🎯 7 أيام تدريب '+(trainingProgress.daysCompleted.length>=7?'✅':'⏳')+'</div></div>';
+    }
+    function renderNotifications() {
+        let html = notifications.slice(0,5).map(n => `<div class="notification-item ${!n.read ? 'new-notif' : ''}"><span>${n.text}</span><button class="notification-close" data-id="${n.id}">✖</button></div>`).join('');
+        document.getElementById('notificationsList').innerHTML = html || '<div class="notification-item">لا توجد إشعارات جديدة</div>';
+        document.querySelectorAll('.notification-close').forEach(btn => btn.addEventListener('click', (e) => { notifications = notifications.filter(n => n.id != btn.dataset.id); saveNotifications(); }));
+    }
+    function renderAll() { renderStats(); renderProgress(); renderDailyTraining(); renderAchievements(); renderNotifications(); }
     
-    // التحقق من جلسة الطالب
-    const session = localStorage.getItem('current_user_session');
-    if (!session) window.location.href = 'index.html';
-    const user = JSON.parse(session);
-    if (user.role !== 'user') window.location.href = 'index.html';
+    document.getElementById('clearAllNotif').addEventListener('click', () => { notifications = []; saveNotifications(); });
+    document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.removeItem('current_user_session'); window.location.href = 'index.html'; });
     
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-        localStorage.removeItem('current_user_session');
-        window.location.href = 'index.html';
-    });
+    if (loadUserData()) renderAll();
 </script>
 </body>
 </html>
