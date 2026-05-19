@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة الطالب | عبدالخالق فيزياء</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,156 +13,99 @@
             padding: 20px;
             color: #f5e6d3;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
         h1 { font-size: 1.8rem; background: linear-gradient(135deg, #ecd9b4, #c7a46b); background-clip: text; -webkit-background-clip: text; color: transparent; }
-        .logout-btn { background: #5e3a1f; padding: 8px 20px; border-radius: 40px; color: #f5e6d3; text-decoration: none; border: none; cursor: pointer; }
-        .badge { background: #d9a13b; color: #1f110a; border-radius: 30px; padding: 4px 12px; font-size: 0.7rem; font-weight: bold; margin-right: 8px; }
+        .logout-btn { background: #5e3a1f; padding: 8px 20px; border-radius: 40px; color: #f5e6d3; border: none; cursor: pointer; }
         
-        /* الإشعارات */
-        .notifications-area {
-            background: #1e1510;
-            border-radius: 28px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            border-right: 4px solid #d9a13b;
-            position: relative;
-        }
-        .notification-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #4f311e;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .notification-item:last-child { border: none; }
-        .notification-close { background: none; border: none; color: #b49166; cursor: pointer; font-size: 1.2rem; }
-        .new-notif { color: #e9c48b; font-weight: bold; }
-        
-        /* البطاقات */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .stat-card {
-            background: #2f1f16b3;
-            backdrop-filter: blur(4px);
-            border-radius: 24px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #c7a46b40;
-        }
-        .stat-number { font-size: 1.8rem; font-weight: bold; color: #e9c48b; }
-        .stat-label { font-size: 0.75rem; color: #c9ac82; margin-top: 5px; }
-        
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .card {
-            background: #2f1f16b3;
+            background: rgba(47, 31, 22, 0.85);
             backdrop-filter: blur(4px);
             border-radius: 28px;
             padding: 20px;
-            border: 1px solid #c7a46b40;
             cursor: pointer;
             transition: 0.2s;
+            border: 1px solid rgba(199, 164, 107, 0.4);
+            text-align: center;
         }
-        .card:hover { transform: translateY(-3px); background: #3d2a1f; }
-        .card h3 { color: #e9c48b; margin-bottom: 8px; font-size: 1.2rem; }
-        .card p { font-size: 0.85rem; color: #c9ac82; }
+        .card:hover { background: #3d2a1f; transform: translateY(-3px); }
+        .card h3 { color: #e9c48b; margin-bottom: 8px; }
         
-        .section {
-            background: #2f1f16b3;
-            backdrop-filter: blur(4px);
+        .selector-area {
+            background: rgba(47, 31, 22, 0.85);
             border-radius: 28px;
-            padding: 20px;
-            margin-bottom: 25px;
-            border: 1px solid #c7a46b40;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(199, 164, 107, 0.4);
+            text-align: center;
         }
-        .section-title {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            border-right: 3px solid #d9a13b;
-            padding-right: 12px;
+        select, button {
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-family: inherit;
+            margin: 5px;
         }
-        
-        /* التدريب اليومي */
-        .day-item {
+        select {
             background: #23150e;
-            border-radius: 20px;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            border: 1px solid #8b5a2b;
+            color: #faeedb;
         }
-        .day-status { font-size: 1.2rem; }
-        .status-completed { color: #6fcf97; }
-        .status-inprogress { color: #e9c48b; }
-        .status-locked { color: #8b5a2b; }
-        
         .btn {
             background: linear-gradient(95deg, #7a4a1f, #9b6737);
             border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
             color: white;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.85rem;
         }
-        .btn-sm { padding: 6px 15px; font-size: 0.75rem; }
-        .btn-outline { background: transparent; border: 1px solid #9b6737; }
         
-        .exam-area, .training-exam-area {
-            background: #1e1510;
-            border-radius: 24px;
-            padding: 20px;
+        .exam-area {
+            background: rgba(47, 31, 22, 0.9);
+            border-radius: 28px;
+            padding: 25px;
             margin-top: 20px;
             display: none;
         }
         .question-box {
-            background: #23150e;
-            border-radius: 20px;
+            background: #1e1510;
+            border-radius: 24px;
             padding: 20px;
+            margin: 20px 0;
+        }
+        .graph-container {
+            background: white;
+            border-radius: 16px;
+            padding: 10px;
             margin: 15px 0;
+            text-align: center;
         }
-        .options label { display: block; margin: 10px 0; cursor: pointer; }
-        
-        .progress-bar {
-            background: #3d2a1f;
-            border-radius: 20px;
-            height: 8px;
-            overflow: hidden;
+        canvas { max-width: 100%; height: auto; background: white; border-radius: 12px; }
+        .options { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+        .option {
+            background: #23150e;
+            border: 1px solid #8b5a2b;
+            border-radius: 60px;
+            padding: 10px 18px;
+            cursor: pointer;
+        }
+        .option.selected { background: #d9a13b; color: #1f110a; font-weight: bold; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
+        .result-card {
+            background: #1e1510;
+            border-radius: 24px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .wrong-item {
+            border-right: 3px solid #e74c3c;
+            padding: 10px;
             margin: 10px 0;
+            background: #2a1a12;
         }
-        .progress-fill {
-            background: #d9a13b;
-            width: 0%;
-            height: 100%;
-            border-radius: 20px;
-        }
-        
-        footer { text-align: center; margin-top: 30px; color: #6f4f31; font-size: 0.7rem; }
-        @media (max-width: 600px) {
-            .day-item { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .card-grid { grid-template-columns: 1fr; }
-        }
+        footer { text-align: center; margin-top: 40px; color: #6f4f31; font-size: 0.75rem; }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -171,518 +114,267 @@
         <button id="logoutBtn" class="logout-btn">🚪 خروج</button>
     </div>
 
-    <!-- الإشعارات -->
-    <div class="notifications-area" id="notificationsArea">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-            <span>🔔 الإشعارات</span>
-            <button id="clearAllNotif" class="btn-sm" style="background:#3d2a1f;">مسح الكل</button>
-        </div>
-        <div id="notificationsList"></div>
-    </div>
-
-    <!-- بطاقات إحصائية سريعة -->
-    <div class="stats-grid" id="statsGrid"></div>
-
-    <!-- بطاقات الأقسام الرئيسية (اختصارات) -->
     <div class="card-grid">
-        <div class="card" onclick="showExamPanel('quick')"><h3>⚡ اختبار سريع</h3><p>10 أسئلة عشوائية – تقييم سريع</p></div>
-        <div class="card" onclick="showExamPanel('standard')"><h3>📚 اختبار حسب المعيار</h3><p>اختر المعيار ومستوى الصعوبة</p></div>
-        <div class="card" onclick="showExamPanel('subject')"><h3>🧪 اختبار حسب المادة</h3><p>ميكانيكا، كهرباء، حرارة، حديثة</p></div>
-        <div class="card" onclick="location.href='dictionary/index.html'"><h3>📖 القاموس الفيزيائي</h3><p>بحث عن المصطلحات</p></div>
-        <div class="card" onclick="location.href='lessons/index.html'"><h3>🖼️ السبورة</h3><p>دروس مصورة بخط اليد</p></div>
-        <div class="card" onclick="location.href='assets/pdfs/'"><h3>📁 مكتبتي</h3><p>ملازم وتجميعات للتحميل</p></div>
+        <div class="card" onclick="showStandardSelector()"><h3>📚 اختبار حسب المعيار</h3><p>اختر المعيار (1-18)</p></div>
+        <div class="card" onclick="startRandomExam()"><h3>🎲 اختبار عشوائي</h3><p>أسئلة من جميع المعايير</p></div>
+        <div class="card" onclick="location.href='dictionary/index.html'"><h3>📖 القاموس الفيزيائي</h3></div>
+        <div class="card" onclick="location.href='lessons/index.html'"><h3>🖼️ السبورة</h3></div>
     </div>
 
-    <!-- قسم التقدم الدراسي -->
-    <div class="section">
-        <div class="section-title">📊 تقدمي الدراسي</div>
-        <div id="progressContent"></div>
+    <!-- منطقة اختيار المعيار -->
+    <div id="standardSelector" class="selector-area" style="display: none;">
+        <h3>اختر المعيار</h3>
+        <select id="standardSelect">
+            <option value="">-- اختر معيار --</option>
+            <option value="1">المعيار 1: طبيعة العلم</option>
+            <option value="2">المعيار 2: المنهج العلمي</option>
+            <option value="3">المعيار 3: المختبرات والسلامة</option>
+            <option value="4">المعيار 4: المهارات الرياضية والإحصائية</option>
+            <option value="5">المعيار 5: الميكانيكا</option>
+            <option value="6">المعيار 6: الموائع</option>
+            <option value="7">المعيار 7: خواص المادة</option>
+            <option value="8">المعيار 8: الكهرباء (قوة ومجال)</option>
+            <option value="9">المعيار 9: التيار والدوائر</option>
+            <option value="10">المعيار 10: المغناطيسية</option>
+            <option value="11">المعيار 11: الحرارة والديناميكا</option>
+            <option value="12">المعيار 12: الموجات والاهتزازات</option>
+            <option value="13">المعيار 13: الضوء</option>
+            <option value="14">المعيار 14: الفيزياء الحديثة</option>
+            <option value="15">المعيار 15: الفيزياء النووية</option>
+            <option value="16">المعيار 16: العلاقة بالعلوم الأخرى</option>
+            <option value="17">المعيار 17: مهارات التدريس</option>
+            <option value="18">المعيار 18: استراتيجيات التدريس والتقويم</option>
+        </select>
+        <button class="btn" onclick="loadStandardExam()">ابدأ الاختبار</button>
+        <button class="btn" onclick="document.getElementById('standardSelector').style.display='none'" style="background:#5e3a1f;">إلغاء</button>
     </div>
 
-    <!-- قسم التدريب اليومي -->
-    <div class="section">
-        <div class="section-title">🎯 التدريب اليومي – رحلتك إلى الإتقان</div>
-        <div id="dailyTrainingContent"></div>
-    </div>
-
-    <!-- قسم الإنجازات -->
-    <div class="section">
-        <div class="section-title">🏆 الإنجازات والشارات</div>
-        <div id="achievementsContent"></div>
-    </div>
-
-    <!-- منطقة عرض الاختبار (تظهر عند الحاجة) -->
-    <div id="examPanel" class="exam-area"></div>
-    <!-- منطقة عرض تدريب الأخطاء -->
-    <div id="trainingExamPanel" class="training-exam-area"></div>
-
-    <footer>أ. عبد الخالق | حيث تلتقي الفيزياء بالرومانسية</footer>
+    <div id="examArea" class="exam-area"></div>
 </div>
 
 <script>
-    // ======================== بيانات تجريبية (سيتم استبدالها ببنك الأسئلة الحقيقي) ========================
-    const questionsBank = {
-        easy: [
-            { id: 1, text: "وحدة قياس القوة في النظام الدولي هي؟", options: ["نيوتن", "جول", "واط", "باسكال"], correct: "أ", explanation: "النيوتن هو وحدة قياس القوة." },
-            { id: 2, text: "قانون نيوتن الثاني ينص على:", options: ["F = m/a", "F = m × a", "F = m + a", "F = m - a"], correct: "ب", explanation: "القوة = الكتلة × التسارع" },
-            { id: 3, text: "إذا كانت كتلة جسم 5kg وتسارعه 2 m/s²، فإن القوة المؤثرة عليه تساوي:", options: ["2.5 N", "7 N", "10 N", "25 N"], correct: "ج", explanation: "F = m × a = 5×2 = 10N" }
-        ],
-        medium: [
-            { id: 4, text: "سيارة كتلتها 1000kg تتحرك بسرعة 20m/s، ما طاقتها الحركية؟", options: ["10000 J", "20000 J", "200000 J", "400000 J"], correct: "ج", explanation: "KE = ½ × 1000 × 400 = 200000J" },
-            { id: 5, text: "قذفت كرة رأسياً لأعلى بسرعة 20 m/s، أقصى ارتفاع تصل إليه (g=10):", options: ["10 m", "20 m", "30 m", "40 m"], correct: "ب", explanation: "h = v²/(2g) = 400/20 = 20m" }
-        ],
-        hard: [
-            { id: 6, text: "قوتان مقدارهما 10N و 24N تؤثران في جسم، أقصى محصلة لهما تساوي:", options: ["14N", "26N", "34N", "240N"], correct: "ج", explanation: "أقصى محصلة عندما تكون القوتان في نفس الاتجاه = 10+24=34N" }
-        ],
-        very_hard: [
-            { id: 7, text: "كرة كتلتها 0.5kg مربوطة بخيط طول 1m تدور رأسياً. سرعتها عند أدنى نقطة 5m/s. قوة الشد (g=10):", options: ["12.5N", "17.5N", "22.5N", "30N"], correct: "ب", explanation: "T = mg + mv²/r = 5 + 12.5 = 17.5N" }
-        ]
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let userAnswers = [];
+    let currentGraphs = {}; // لتخزين كائنات Chart.js لكل رسم
+
+    // إظهار قائمة المعايير
+    window.showStandardSelector = function() {
+        document.getElementById('standardSelector').style.display = 'block';
+        document.getElementById('examArea').style.display = 'none';
     };
 
-    // مستويات الصعوبة التصاعدية للأيام
-    const dailyLevels = [
-        "easy", "easy", "easy", "easy", "easy", "easy", "easy",   // أيام 1-7: سهل
-        "medium", "medium", "medium", "medium", "medium", "medium", "medium", // أيام 8-14: متوسط
-        "hard", "hard", "hard", "hard", "hard", "hard", "hard",   // أيام 15-21: صعب
-        "very_hard", "very_hard", "very_hard", "very_hard", "very_hard", "very_hard", "very_hard", "very_hard", "very_hard" // أيام 22-30: صعب جداً
-    ];
-
-    // بيانات المستخدم والتقدم
-    let currentUser = null;
-    let trainingProgress = {
-        currentDay: 1,
-        daysCompleted: [],
-        dayDetails: {}
+    // تحميل اختبار حسب المعيار
+    window.loadStandardExam = async function() {
+        const standardId = document.getElementById('standardSelect').value;
+        if (!standardId) {
+            alert('الرجاء اختيار معيار أولاً');
+            return;
+        }
+        document.getElementById('standardSelector').style.display = 'none';
+        
+        // محاولة تحميل ملف الأسئلة الخاص بالمعيار
+        try {
+            const response = await fetch(`questions/standards/standard-${standardId}.json`);
+            if (!response.ok) throw new Error('الملف غير موجود');
+            const data = await response.json();
+            if (!data.questions || data.questions.length === 0) {
+                alert('لا توجد أسئلة لهذا المعيار حالياً. سيتم إضافتها قريباً.');
+                return;
+            }
+            startExam(data.questions);
+        } catch (error) {
+            console.error(error);
+            alert(`⚠️ المعيار ${standardId} لا يحتوي على أسئلة بعد. الرجاء إضافة أسئلة من لوحة المالك أولاً.`);
+        }
     };
-    let examResults = [];
 
-    // الإشعارات
-    let notifications = [];
+    // اختبار عشوائي (تجريبي)
+    window.startRandomExam = async function() {
+        // مؤقتاً: نعرض رسالة
+        alert('سيتم تفعيل الاختبار العشوائي قريباً. حالياً يمكنك تجربة الاختبار حسب المعيار.');
+    };
 
-    // متغيرات الاختبار الحالي
-    let currentExamQuestions = [];
-    let currentExamIndex = 0;
-    let currentExamAnswers = [];
-    let currentExamType = null;
-    let currentExamCallback = null;
+    // بدء الاختبار بالأسئلة المحملة
+    function startExam(questions) {
+        currentQuestions = questions;
+        currentIndex = 0;
+        userAnswers = new Array(questions.length).fill(null);
+        renderCurrentQuestion();
+        document.getElementById('examArea').style.display = 'block';
+    }
 
-    // ======================== دوال التخزين ========================
-    function loadUserData() {
-        const session = localStorage.getItem('current_user_session');
-        if(!session) { window.location.href = 'index.html'; return null; }
-        const user = JSON.parse(session);
-        if(user.role !== 'user') { window.location.href = 'index.html'; return null; }
-        currentUser = user;
+    // عرض السؤال الحالي مع رسمه البياني إن وجد
+    function renderCurrentQuestion() {
+        const q = currentQuestions[currentIndex];
+        const area = document.getElementById('examArea');
         
-        // تحميل تقدم التدريب
-        const savedTraining = localStorage.getItem(`training_${user.email}`);
-        if(savedTraining) trainingProgress = JSON.parse(savedTraining);
-        else {
-            trainingProgress = { currentDay: 1, daysCompleted: [], dayDetails: {} };
-            saveTrainingProgress();
+        let graphHtml = '';
+        if (q.graph && q.graph.points && q.graph.points.length > 0) {
+            graphHtml = `
+                <div class="graph-container">
+                    <canvas id="graphCanvas_${currentIndex}" width="450" height="220" style="max-width:100%; height:auto"></canvas>
+                </div>
+            `;
         }
         
-        // تحميل نتائج الاختبارات
-        const savedResults = localStorage.getItem(`results_${user.email}`);
-        if(savedResults) examResults = JSON.parse(savedResults);
+        let optionsHtml = '';
+        q.options.forEach(opt => {
+            const letter = opt.charAt(0);
+            const isSelected = (userAnswers[currentIndex] === letter);
+            optionsHtml += `<div class="option ${isSelected ? 'selected' : ''}" data-val="${letter}" onclick="selectOption(this, ${currentIndex}, '${letter}')">${opt}</div>`;
+        });
         
-        // تحميل الإشعارات
-        const savedNotif = localStorage.getItem(`notifications_${user.email}`);
-        if(savedNotif) notifications = JSON.parse(savedNotif);
-        else {
-            notifications = [{ id: Date.now(), text: "✨ أهلاً بكِ في منصة عبدالخالق فيزياء! ابدأي رحلتك مع التدريب اليومي.", read: false, date: new Date().toISOString() }];
-            saveNotifications();
-        }
-        
-        return user;
-    }
-    
-    function saveTrainingProgress() {
-        localStorage.setItem(`training_${currentUser.email}`, JSON.stringify(trainingProgress));
-    }
-    
-    function saveExamResults() {
-        localStorage.setItem(`results_${currentUser.email}`, JSON.stringify(examResults));
-    }
-    
-    function saveNotifications() {
-        localStorage.setItem(`notifications_${currentUser.email}`, JSON.stringify(notifications));
-        renderNotifications();
-    }
-    
-    function addNotification(text) {
-        notifications.unshift({ id: Date.now(), text: text, read: false, date: new Date().toISOString() });
-        saveNotifications();
-    }
-    
-    // ======================== دوال الحصول على الأسئلة ========================
-    function getQuestionsByDifficulty(level, count = 5) {
-        const bank = questionsBank[level] || questionsBank.easy;
-        const shuffled = [...bank];
-        for(let i=shuffled.length-1; i>0; i--) {
-            const j = Math.floor(Math.random()*(i+1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled.slice(0, count);
-    }
-    
-    function getRandomQuestions(count = 10) {
-        let all = [...questionsBank.easy, ...questionsBank.medium, ...questionsBank.hard, ...questionsBank.very_hard];
-        for(let i=all.length-1; i>0; i--) {
-            const j = Math.floor(Math.random()*(i+1));
-            [all[i], all[j]] = [all[j], all[i]];
-        }
-        return all.slice(0, count);
-    }
-    
-    // ======================== التدريب اليومي ========================
-    function getCurrentDayDifficulty() {
-        if(trainingProgress.currentDay <= 30) return dailyLevels[trainingProgress.currentDay-1];
-        return "very_hard";
-    }
-    
-    function getTodayQuestions() {
-        const level = getCurrentDayDifficulty();
-        return getQuestionsByDifficulty(level, 5);
-    }
-    
-    function checkAndAdvanceDay() {
-        const dayData = trainingProgress.dayDetails[trainingProgress.currentDay];
-        if(!dayData) return false;
-        const wrongCount = dayData.wrongQuestions?.filter(w => !w.isResolved).length || 0;
-        const total = dayData.total || 5;
-        const correctCount = total - wrongCount;
-        const percentage = (correctCount / total) * 100;
-        const passScore = 80;
-        
-        if(percentage >= passScore && !trainingProgress.daysCompleted.includes(trainingProgress.currentDay)) {
-            trainingProgress.daysCompleted.push(trainingProgress.currentDay);
-            trainingProgress.currentDay++;
-            saveTrainingProgress();
-            addNotification(`🎉 تهانينا! أكملتِ اليوم ${trainingProgress.currentDay-1} بنجاح. انتقلتِ إلى اليوم ${trainingProgress.currentDay}.`);
-            renderDailyTraining();
-            renderProgress();
-            renderStats();
-            return true;
-        }
-        return false;
-    }
-    
-    function startDailyTraining() {
-        const todayQuestions = getTodayQuestions();
-        const dayData = trainingProgress.dayDetails[trainingProgress.currentDay];
-        let questionsToShow = todayQuestions;
-        let existingWrong = [];
-        
-        if(dayData && dayData.wrongQuestions) {
-            existingWrong = dayData.wrongQuestions.filter(w => !w.isResolved);
-            if(existingWrong.length > 0) {
-                // إعادة الأسئلة الخاطئة فقط
-                questionsToShow = existingWrong.map(w => {
-                    const q = [...questionsBank.easy, ...questionsBank.medium, ...questionsBank.hard, ...questionsBank.very_hard].find(q => q.id == w.questionId);
-                    return { ...q, userAnswer: w.userAnswer, isRetry: true };
-                });
-            }
-        }
-        
-        currentExamQuestions = questionsToShow;
-        currentExamIndex = 0;
-        currentExamAnswers = new Array(questionsToShow.length).fill(null);
-        currentExamType = 'daily';
-        currentExamCallback = (answers) => {
-            const score = answers.filter((a, idx) => a === currentExamQuestions[idx]?.correct).length;
-            const wrongList = [];
-            answers.forEach((ans, idx) => {
-                if(ans !== currentExamQuestions[idx]?.correct) {
-                    wrongList.push({
-                        questionId: currentExamQuestions[idx].id,
-                        userAnswer: ans,
-                        correctAnswer: currentExamQuestions[idx].correct,
-                        isResolved: false
-                    });
-                }
-            });
-            const total = currentExamQuestions.length;
-            const percentage = (score/total)*100;
-            
-            trainingProgress.dayDetails[trainingProgress.currentDay] = {
-                total: total,
-                score: score,
-                percentage: percentage,
-                wrongQuestions: wrongList,
-                lastAttempt: new Date().toISOString()
-            };
-            saveTrainingProgress();
-            
-            if(percentage >= 80) {
-                checkAndAdvanceDay();
-                addNotification(`✅ أحسنتِ! أتممتِ تدريب اليوم ${trainingProgress.currentDay-1} بنجاح.`);
-            } else {
-                addNotification(`📚 لا تقلقي! يوم ${trainingProgress.currentDay} يحتاج إلى مراجعة ${wrongList.length} أسئلة. أعدي المحاولة غداً أو الآن.`);
-            }
-            renderDailyTraining();
-            renderProgress();
-            renderStats();
-            document.getElementById('trainingExamPanel').style.display = 'none';
-        };
-        showTrainingExam();
-    }
-    
-    function showTrainingExam() {
-        const area = document.getElementById('trainingExamPanel');
-        renderExamQuestions(area, currentExamQuestions, currentExamAnswers, () => {
-            currentExamCallback(currentExamAnswers);
-        }, 'daily');
-        area.style.display = 'block';
-        document.getElementById('examPanel').style.display = 'none';
-    }
-    
-    // ======================== دوال الاختبارات العامة ========================
-    function showExamPanel(type) {
-        if(type === 'quick') {
-            currentExamQuestions = getRandomQuestions(10);
-            currentExamIndex = 0;
-            currentExamAnswers = new Array(10).fill(null);
-            currentExamType = 'quick';
-            currentExamCallback = (answers) => {
-                const score = answers.filter((a, idx) => a === currentExamQuestions[idx]?.correct).length;
-                const result = { id: Date.now(), type: 'سريع', score, total: currentExamQuestions.length, percentage: Math.round((score/currentExamQuestions.length)*100), date: new Date().toISOString() };
-                examResults.unshift(result);
-                saveExamResults();
-                addNotification(`📝 أتممتِ اختباراً سريعاً! نتيجتك: ${score}/${currentExamQuestions.length} (${result.percentage}%)`);
-                renderProgress();
-                renderStats();
-                document.getElementById('examPanel').style.display = 'none';
-            };
-            renderExam();
-        } else if(type === 'standard') {
-            const std = prompt("أدخل رقم المعيار (1-18):", "5");
-            if(std && std>=1 && std<=18) {
-                currentExamQuestions = [...questionsBank.easy, ...questionsBank.medium, ...questionsBank.hard, ...questionsBank.very_hard].slice(0,8);
-                currentExamIndex = 0;
-                currentExamAnswers = new Array(8).fill(null);
-                currentExamType = 'standard';
-                currentExamCallback = (answers) => {
-                    const score = answers.filter((a, idx) => a === currentExamQuestions[idx]?.correct).length;
-                    const result = { id: Date.now(), type: `معيار ${std}`, score, total: currentExamQuestions.length, percentage: Math.round((score/currentExamQuestions.length)*100), date: new Date().toISOString() };
-                    examResults.unshift(result);
-                    saveExamResults();
-                    addNotification(`📊 أتممتِ اختبار المعيار ${std}. نتيجتك: ${score}/${currentExamQuestions.length}`);
-                    renderProgress();
-                    renderStats();
-                    document.getElementById('examPanel').style.display = 'none';
-                };
-                renderExam();
-            } else alert("الرجاء إدخال معيار صحيح (1-18)");
-        } else if(type === 'subject') {
-            const sub = prompt("اختر المادة:\n1- ميكانيكا\n2- كهرباء\n3- حرارة وموجات\n4- فيزياء حديثة", "1");
-            if(sub) {
-                currentExamQuestions = [...questionsBank.easy, ...questionsBank.medium].slice(0,8);
-                currentExamIndex = 0;
-                currentExamAnswers = new Array(8).fill(null);
-                currentExamType = 'subject';
-                currentExamCallback = (answers) => {
-                    const score = answers.filter((a, idx) => a === currentExamQuestions[idx]?.correct).length;
-                    const result = { id: Date.now(), type: `مادة ${sub}`, score, total: currentExamQuestions.length, percentage: Math.round((score/currentExamQuestions.length)*100), date: new Date().toISOString() };
-                    examResults.unshift(result);
-                    saveExamResults();
-                    addNotification(`🔬 أتممتِ اختبار المادة. نتيجتك: ${score}/${currentExamQuestions.length}`);
-                    renderProgress();
-                    renderStats();
-                    document.getElementById('examPanel').style.display = 'none';
-                };
-                renderExam();
-            }
-        }
-    }
-    
-    function renderExam() {
-        const area = document.getElementById('examPanel');
-        renderExamQuestions(area, currentExamQuestions, currentExamAnswers, () => {
-            currentExamCallback(currentExamAnswers);
-        }, 'normal');
-        area.style.display = 'block';
-        document.getElementById('trainingExamPanel').style.display = 'none';
-    }
-    
-    function renderExamQuestions(container, questions, answers, onFinish, type) {
-        if(!questions || questions.length === 0) return;
-        const q = questions[currentExamIndex];
         let html = `
-            <h3>📝 السؤال ${currentExamIndex+1} من ${questions.length}</h3>
+            <h3>📝 السؤال ${currentIndex+1} من ${currentQuestions.length}</h3>
             <div class="question-box">
                 <p><strong>${q.text}</strong></p>
-                <div class="options">
-                    ${q.options.map((opt, idx) => {
-                        const letter = String.fromCharCode(65+idx);
-                        return `<label><input type="radio" name="answer" value="${letter}" ${answers[currentExamIndex] === letter ? 'checked' : ''}> ${letter}) ${opt}</label>`;
-                    }).join('')}
-                </div>
-                <div>
-                    <button class="btn" onclick="prevExamQuestion()" ${currentExamIndex === 0 ? 'disabled' : ''}>السابق</button>
-                    <button class="btn" onclick="nextExamQuestion(${type === 'daily' ? 'true' : 'false'})">${currentExamIndex === questions.length-1 ? 'إنهاء' : 'التالي'}</button>
+                ${graphHtml}
+                <div class="options" id="optionsContainer_${currentIndex}">${optionsHtml}</div>
+                <div class="nav-buttons">
+                    <button class="btn" onclick="prevQuestion()" ${currentIndex === 0 ? 'disabled' : ''}>⟳ السابق</button>
+                    <button class="btn" onclick="nextQuestion()">${currentIndex === currentQuestions.length-1 ? '🏁 إنهاء' : 'التالي →'}</button>
                 </div>
             </div>
         `;
-        container.innerHTML = html;
+        
+        area.innerHTML = html;
+        
+        // رسم الرسم البياني بعد ظهور الـ canvas
+        if (q.graph && q.graph.points && q.graph.points.length > 0) {
+            drawGraphForQuestion(q.graph, `graphCanvas_${currentIndex}`);
+        }
     }
     
-    window.prevExamQuestion = function() {
-        if(currentExamIndex > 0) {
-            currentExamIndex--;
-            if(currentExamType === 'daily') showTrainingExam();
-            else renderExam();
+    function drawGraphForQuestion(graphData, canvasId) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        // تدمير الرسم السابق إن وجد
+        if (currentGraphs[canvasId]) currentGraphs[canvasId].destroy();
+        
+        currentGraphs[canvasId] = new Chart(ctx, {
+            type: graphData.type || 'line',
+            data: {
+                datasets: [{
+                    label: graphData.yLabel || 'القيمة',
+                    data: graphData.points,
+                    borderColor: '#d9a13b',
+                    backgroundColor: 'rgba(217,161,59,0.05)',
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#c7a46b',
+                    tension: 0,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    x: { title: { display: true, text: graphData.xLabel || 'الزمن (s)' } },
+                    y: { title: { display: true, text: graphData.yLabel || 'القيمة' } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+    
+    window.selectOption = function(element, idx, value) {
+        // تحديث الإجابة
+        userAnswers[idx] = value;
+        // تحديث الواجهة
+        const container = document.getElementById(`optionsContainer_${idx}`);
+        if (container) {
+            Array.from(container.children).forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
         }
     };
     
-    window.nextExamQuestion = function(isDaily = false) {
-        const selected = document.querySelector('#examPanel input[name="answer"]:checked, #trainingExamPanel input[name="answer"]:checked');
-        if(!selected) { alert("الرجاء اختيار إجابة"); return; }
-        currentExamAnswers[currentExamIndex] = selected.value;
-        if(currentExamIndex === currentExamQuestions.length-1) {
-            if(isDaily) currentExamCallback(currentExamAnswers);
-            else currentExamCallback(currentExamAnswers);
+    window.nextQuestion = function() {
+        if (!userAnswers[currentIndex]) {
+            alert('الرجاء اختيار إجابة قبل الانتقال');
+            return;
+        }
+        if (currentIndex === currentQuestions.length - 1) {
+            finishExam();
         } else {
-            currentExamIndex++;
-            if(isDaily) showTrainingExam();
-            else renderExam();
+            currentIndex++;
+            renderCurrentQuestion();
         }
     };
     
-    // ======================== دوال العرض والتحديث ========================
-    function renderStats() {
-        const totalTests = examResults.length;
-        const avg = totalTests > 0 ? Math.round(examResults.reduce((a,b)=>a+b.percentage,0)/totalTests) : 0;
-        const completedDays = trainingProgress.daysCompleted.length;
-        document.getElementById('statsGrid').innerHTML = `
-            <div class="stat-card"><div class="stat-number">${totalTests}</div><div class="stat-label">📊 عدد الاختبارات</div></div>
-            <div class="stat-card"><div class="stat-number">${avg}%</div><div class="stat-label">⭐ متوسط الدرجات</div></div>
-            <div class="stat-card"><div class="stat-number">${completedDays}</div><div class="stat-label">🎯 أيام مكتملة</div></div>
-            <div class="stat-card"><div class="stat-number">${trainingProgress.currentDay-1}</div><div class="stat-label">📅 اليوم الحالي</div></div>
-        `;
-    }
-    
-    function renderProgress() {
-        const last5 = examResults.slice(0,5);
-        let lastHtml = last5.map(r => `<div class="day-item"><span>${r.type} – ${r.date.substring(0,10)}</span><span>${r.score}/${r.total} (${r.percentage}%)</span></div>`).join('');
-        if(lastHtml === '') lastHtml = '<p>لا توجد اختبارات سابقة. ابدئي الاختبارات الآن.</p>';
-        
-        // المعايير المتقنة (محاكاة)
-        const mastered = ['معيار 1', 'معيار 2'];
-        const weak = ['معيار 5 (الميكانيكا)'];
-        
-        document.getElementById('progressContent').innerHTML = `
-            <div style="margin-bottom:15px"><strong>📋 آخر 5 اختبارات:</strong></div>
-            ${lastHtml}
-            <div class="progress-bar"><div class="progress-fill" style="width: ${Math.min(100, (trainingProgress.daysCompleted.length/30)*100)}%"></div></div>
-            <div><strong>✅ معايير متقنة:</strong> ${mastered.join(', ') || 'لا يوجد'}</div>
-            <div><strong>⚠️ معايير تحتاج تركيز:</strong> ${weak.join(', ') || 'ممتاز! كل المعايير متقنة'}</div>
-            <div><strong>💡 توصية اليوم:</strong> راجعي الأسئلة الخاطئة في التدريب اليومي قبل الانتقال إلى اليوم التالي.</div>
-        `;
-    }
-    
-    function renderDailyTraining() {
-        const currentDay = trainingProgress.currentDay;
-        const daysComp = trainingProgress.daysCompleted;
-        let daysHtml = '';
-        for(let i=1; i<=30; i++) {
-            let status = '';
-            let statusText = '';
-            let statusClass = '';
-            if(daysComp.includes(i)) { status = '✅'; statusText = 'مكتمل'; statusClass = 'status-completed'; }
-            else if(i === currentDay) { status = '⏳'; statusText = 'قيد التدريب'; statusClass = 'status-inprogress'; }
-            else { status = '🔒'; statusText = 'غير متاح'; statusClass = 'status-locked'; }
-            daysHtml += `<div class="day-item"><span>📅 اليوم ${i}</span><span class="day-status ${statusClass}">${status} ${statusText}</span></div>`;
+    window.prevQuestion = function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderCurrentQuestion();
         }
+    };
+    
+    function finishExam() {
+        let score = 0;
+        let details = [];
+        currentQuestions.forEach((q, idx) => {
+            const isCorrect = (userAnswers[idx] === q.correct);
+            if (isCorrect) score++;
+            details.push({
+                question: q.text,
+                userAnswer: userAnswers[idx] || 'لم تجب',
+                correctAnswer: q.correct,
+                isCorrect: isCorrect,
+                explanation: q.explanation || 'لا يوجد شرح'
+            });
+        });
+        const percentage = Math.round((score / currentQuestions.length) * 100);
         
-        const dayData = trainingProgress.dayDetails[currentDay];
         let wrongHtml = '';
-        if(dayData && dayData.wrongQuestions && dayData.wrongQuestions.filter(w=>!w.isResolved).length > 0) {
-            wrongHtml = `<div style="margin-top:15px"><strong>⚠️ الأخطاء التي يجب تصحيحها (اليوم ${currentDay}):</strong></div>`;
-            dayData.wrongQuestions.filter(w=>!w.isResolved).forEach(w => {
-                const q = [...questionsBank.easy, ...questionsBank.medium, ...questionsBank.hard, ...questionsBank.very_hard].find(q => q.id == w.questionId);
-                if(q) wrongHtml += `<div class="day-item"><span>❌ ${q.text.substring(0,60)}...</span><span>إجابتك: ${w.userAnswer} | الصحيح: ${w.correctAnswer}</span></div>`;
-            });
-            wrongHtml += `<button class="btn btn-sm" style="margin-top:10px" onclick="startDailyTraining()">🔄 إعادة تدريب الأخطاء</button>`;
-        }
+        details.filter(d => !d.isCorrect).forEach(d => {
+            wrongHtml += `<div class="wrong-item"><strong>❌ ${d.question}</strong><br>إجابتك: ${d.userAnswer} | الصحيح: ${d.correctAnswer}<br>📘 ${d.explanation}</div>`;
+        });
         
-        document.getElementById('dailyTrainingContent').innerHTML = `
-            <div><strong>🔥 يومك الحالي: ${currentDay} من 30</strong> (${getCurrentDayDifficulty() === 'easy' ? 'سهل' : getCurrentDayDifficulty() === 'medium' ? 'متوسط' : getCurrentDayDifficulty() === 'hard' ? 'صعب' : 'صعب جداً'})</div>
-            <div class="progress-bar"><div class="progress-fill" style="width: ${(daysComp.length/30)*100}%"></div></div>
-            <button class="btn" onclick="startDailyTraining()" style="margin:15px 0">🎯 ابدأ التدريب اليومي</button>
-            ${wrongHtml}
-            <div style="margin-top:15px"><strong>📅 أيام التدريب:</strong></div>
-            ${daysHtml}
+        let levelMsg = '';
+        if (percentage >= 80) levelMsg = '🌟 ممتاز! أنتِ في الطريق الصحيح. 🌟';
+        else if (percentage >= 60) levelMsg = '📚 جيد، لكن هناك مجال للتحسين. راجعي الأخطاء أدناه.';
+        else levelMsg = '💪 لا تقلقي، هذا التشخيص يظهر لنا أين نركز. أنا معكِ خطوة بخطوة.';
+        
+        const resultHtml = `
+            <div class="result-card">
+                <h3>✅ نتيجتك: ${score}/${currentQuestions.length} (${percentage}%)</h3>
+                <p>${levelMsg}</p>
+                <h4>📋 تفصيل الأخطاء:</h4>
+                ${wrongHtml || '<p style="color:#6fcf97;">✨ مذهلة! لا توجد أخطاء. أنتِ جاهزة للاختبار الحقيقي. ✨</p>'}
+                <button class="btn" onclick="location.reload()">🔄 اختبار جديد</button>
+            </div>
         `;
-    }
-    
-    function renderAchievements() {
-        const testsCount = examResults.length;
-        const daysCount = trainingProgress.daysCompleted.length;
-        const achievements = [
-            { name: "🥇 أول اختبار", done: testsCount >= 1 },
-            { name: "🥈 5 اختبارات", done: testsCount >= 5 },
-            { name: "🥉 10 اختبارات", done: testsCount >= 10 },
-            { name: "⭐ إتقان أول معيار", done: false },
-            { name: "🎯 7 أيام تدريب", done: daysCount >= 7 },
-            { name: "🏆 30 يوماً كاملة", done: daysCount >= 30 }
-        ];
-        let html = '<div style="display:flex; flex-wrap:wrap; gap:10px;">';
-        achievements.forEach(a => {
-            html += `<div style="background:#23150e; border-radius:20px; padding:8px 15px;">${a.name} ${a.done ? '✅' : '⏳'}</div>`;
-        });
-        html += '</div>';
-        document.getElementById('achievementsContent').innerHTML = html;
-    }
-    
-    function renderNotifications() {
-        const container = document.getElementById('notificationsList');
-        let html = '';
-        notifications.slice(0,5).forEach(n => {
-            html += `<div class="notification-item ${!n.read ? 'new-notif' : ''}">
-                        <span>${n.text}</span>
-                        <button class="notification-close" data-id="${n.id}">✖</button>
-                    </div>`;
-        });
-        if(html === '') html = '<div class="notification-item">لا توجد إشعارات جديدة</div>';
-        container.innerHTML = html;
         
-        document.querySelectorAll('.notification-close').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const id = parseInt(btn.dataset.id);
-                notifications = notifications.filter(n => n.id !== id);
-                saveNotifications();
+        document.getElementById('examArea').innerHTML = resultHtml;
+        
+        // حفظ النتيجة في LocalStorage
+        const session = JSON.parse(localStorage.getItem('current_user_session'));
+        if (session && session.email) {
+            let results = JSON.parse(localStorage.getItem(`results_${session.email}`) || '[]');
+            results.unshift({
+                examType: 'standard',
+                examId: document.getElementById('standardSelect').value,
+                score: score,
+                total: currentQuestions.length,
+                percentage: percentage,
+                date: new Date().toISOString()
             });
-        });
+            localStorage.setItem(`results_${session.email}`, JSON.stringify(results));
+        }
     }
     
-    document.getElementById('clearAllNotif').addEventListener('click', () => {
-        notifications = [];
-        saveNotifications();
-    });
+    // التحقق من جلسة الطالب
+    const session = localStorage.getItem('current_user_session');
+    if (!session) window.location.href = 'index.html';
+    const user = JSON.parse(session);
+    if (user.role !== 'user') window.location.href = 'index.html';
     
-    function renderAll() {
-        renderStats();
-        renderProgress();
-        renderDailyTraining();
-        renderAchievements();
-        renderNotifications();
-    }
-    
-    // ======================== تسجيل الخروج ========================
     document.getElementById('logoutBtn').addEventListener('click', () => {
         localStorage.removeItem('current_user_session');
         window.location.href = 'index.html';
     });
-    
-    // ======================== تهيئة الصفحة ========================
-    if(loadUserData()) {
-        renderAll();
-        // إضافة إشعار ترحيبي إذا كان اليوم الأول
-        if(trainingProgress.daysCompleted.length === 0 && trainingProgress.currentDay === 1 && !trainingProgress.dayDetails[1]) {
-            addNotification("🌟 مرحباً بكِ! ابدأي رحلتك مع التدريب اليومي. كل يوم 5 أسئلة، وتصاعد في الصعوبة.");
-        }
-    }
 </script>
 </body>
 </html>
